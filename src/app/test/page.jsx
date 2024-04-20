@@ -1,7 +1,15 @@
-export default function test() {
+import Link from 'next/link'
+
+const test = () => {
     return (
         <>
-            <h1 className="text-blue-600 font-bold">test</h1>
+            Test
+            {/* pop back navigation */}
+            <Link href="/">
+                Go Home
+            </Link>
         </>
-    );
+    )
 }
+
+export default test
