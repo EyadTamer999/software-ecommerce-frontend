@@ -1,7 +1,7 @@
 export default function test() {
     return (
         <>
-            <h1 className="text-green-600 font-extralight">test</h1>
+            <h1 className="text-blue-600 font-bold">test</h1>
         </>
     );
 }
