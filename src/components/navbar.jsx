@@ -22,7 +22,9 @@ const Navbar = () => {
                                 alt="Logo"
                                 className="w-12 h-12"
                             />
-                            <span className='text-accent hover:text-primary duration-150'><span className='font-extrabold text-primary hover:text-accent duration-150'>P</span>allet<span className='font-extrabold text-primary hover:text-accent duration-150'>Y</span></span>
+                            <span className="text-base-content group-hover:text-primary">
+                                PalletY
+                            </span>
                         </a>
                     </div>
                     <nav className="space-x-3 md:space-x-6">
