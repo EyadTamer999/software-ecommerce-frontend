@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../Assets/icon.png'
+import Logo from '../assets/icon.png'
 
 const Navbar = () => {
 
@@ -15,14 +15,14 @@ const Navbar = () => {
                     <div>
                         <a
                             href="/"
-                            className="group inline-flex items-center space-x-2 text-lg font-bold tracking-wide text-gray-900 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
+                            className="group inline-flex items-center space-x-2 text-lg font-bold tracking-wide"
                         >
                             <img
                                 src={Logo.src}
                                 alt="Logo"
                                 className="w-12 h-12"
                             />
-                            <span className='text-primary'>PalletY</span>
+                            <span className='text-accent hover:text-primary duration-150'><span className='font-extrabold text-primary hover:text-accent duration-150'>P</span>allet<span className='font-extrabold text-primary hover:text-accent duration-150'>Y</span></span>
                         </a>
                     </div>
                     <nav className="space-x-3 md:space-x-6">
@@ -46,12 +46,11 @@ const Navbar = () => {
                         </a>
 
                         {/* cart button */}
-                        <a
-                            href="cart"
+                        <button
                             className="text-sm font-semibold text-base-content hover:text-primary"
                         >
-                            <span>Cart</span>
-                        </a>
+                            Cart
+                        </button>
 
                         {/* theme toggle */}
                         {/* TODO fix size and store the theme in the localstorage */}
