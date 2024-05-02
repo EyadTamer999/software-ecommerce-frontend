@@ -8,9 +8,10 @@ module.exports = {
   },
   plugins: [
     require('daisyui'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 
   daisyui: {
-    themes: ["corporate", "dim"]
+    themes: ["light", "dark"]
   },
 };
