@@ -1,6 +1,8 @@
+"use client"; // This is a client component 👈🏽
 import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import Logo from '../../public/icon.svg'
 
 const navigation = {
     categories: [
@@ -136,7 +138,7 @@ export default function Navbar() {
         <div className="bg-white">
             {/* Mobile menu */}
             <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
+                <Dialog as="div" className="relative z-[100] lg:hidden" onClose={setOpen}>
                     <Transition.Child
                         as={Fragment}
                         enter="transition-opacity ease-linear duration-300"
