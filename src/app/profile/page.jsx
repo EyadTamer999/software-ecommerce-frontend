@@ -6,7 +6,7 @@ const Profile = () => {
     return (
         <div class="relative bg-gray-50 w-screen h-screen pattern">
 
-            <h1 class="text-4xl font-bold text-center text-gray-800 pt-4">Sidebar</h1>
+            <h1 class="text-4xl font-bold text-center text-gray-800 pt-4">Page Name</h1>
 
             <Sidebar />
         </div>

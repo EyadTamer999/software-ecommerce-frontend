@@ -34,7 +34,7 @@ const Login = () => {
                                     <a href="javascript:void(0)" class="mr-3 text-sm font-medium text-base-content">Forget password?</a>
                                 </div>
                                 <button class="w-full btn btn-primary rounded-2xl ">Sign In</button>
-                                <p class="text-sm leading-relaxed text-base-content">Not registered yet? <a href="register" class="font-bold text-base-content">Create an Account</a></p>
+                                <p class="text-sm leading-relaxed text-base-content mt-3">Not registered yet? <a href="signup" class="font-bold text-base-content">Create an Account</a></p>
                             </form>
                         </div>
                     </div>

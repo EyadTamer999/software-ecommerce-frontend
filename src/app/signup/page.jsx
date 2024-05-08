@@ -98,6 +98,7 @@ const Signup = () => {
                         <form className="flex flex-col w-full h-full pb-6 text-center rounded-3xl">
                             <h3 className="mb-3 text-4xl font-extrabold text-base-content">Sign up</h3>
                             <p className="mb-4 text-base-content">Create your account</p>
+                            <span className="text-sm text-base-content">Already have an account? <a href="login" className="font-bold text-base-content">Sign in</a></span>
                             <ul className="steps my-5 mx-full">
                                 {stepsData.map((step) => (
                                     <li key={step.title} className={`step ${step.isActive ? 'step-primary' : ''}`}>
