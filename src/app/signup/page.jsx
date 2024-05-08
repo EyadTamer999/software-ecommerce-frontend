@@ -10,8 +10,6 @@ const Signup = () => {
 
     const currentStepIndex = stepsData.findIndex((step) => step.isActive);
 
-
-
     const [data, setData] = useState({
         firstName: '',
         lastName: '',
