@@ -8,6 +8,7 @@ const Signup = () => {
         { title: 'Review & Submit', isActive: false },
     ]);
 
+    // TODO fix error
     const currentStepIndex = stepsData.findIndex((step) => step.isActive);
 
     const [data, setData] = useState({
@@ -33,7 +34,7 @@ const Signup = () => {
 
             // check if a field is empty
             if (currentStepIndex === 0) {
-                if (data.firstName === '' || data.lastName === '' || data.phoneNumber === '' || data.email === '' || data.password === '' || data.confirmPassword === '') {
+                if (data.firstName == '' || data.lastName == '' || data.phoneNumber == '' || data.email == '' || data.password == '' || data.confirmPassword == '') {
 
                     setErrorMessage('Please fill all fields');
                     setError(true);
