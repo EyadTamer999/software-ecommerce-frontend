@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Logo from '../../public/icon.svg'
+import Cart from './cart';
 
 const navigation = {
     categories: [
@@ -133,6 +134,7 @@ function classNames(...classes) {
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
+    const [openCart, setOpenCart] = useState(false)
 
     return (
         <div className="bg-white z-[99]">
@@ -440,8 +442,9 @@ export default function Navbar() {
 
                                 {/* Cart */}
                                 <div className="ml-4 flow-root lg:ml-6">
-                                    <a href="#" className="group -m-2 flex items-center p-2">
+                                    <a className="group -m-2 flex items-center p-2">
                                         <ShoppingBagIcon
+                                            onClick={() => setOpenCart(true)}
                                             className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                             aria-hidden="true"
                                         />
@@ -454,6 +457,7 @@ export default function Navbar() {
                     </div>
                 </nav>
             </header>
+            <Cart open={openCart} setOpen={setOpenCart} />
         </div>
     )
 }

@@ -27,8 +27,8 @@ const products = [
     // More products...
 ]
 
-export default function Cart() {
-    const [open, setOpen] = useState(true)
+export default function Cart({ open, setOpen }) {
+
 
     return (
         <Transition.Root show={open} as={Fragment}>
