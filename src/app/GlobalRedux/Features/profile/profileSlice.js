@@ -10,7 +10,7 @@ const intialState = {
 
 const profileSlice = createSlice({
     name: "profile",
-    initialState,
+    initialState: intialState,
     reducers: {
         setName(state, action) {
             state.name = action.payload;
