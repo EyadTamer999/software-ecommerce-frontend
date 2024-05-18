@@ -2,7 +2,6 @@
 import React, { useState } from 'react'
 
 const Sidebar = () => {
-
     const [isSidebarVisible, setSidebarVisible] = useState(true);
 
     const toggleSidebar = () => {
@@ -46,7 +45,8 @@ const Sidebar = () => {
 
                         {/* Orders */}
 
-                        <a href="#orders"
+                        <a
+                            href="#orders"
                             class="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
 
                         >
