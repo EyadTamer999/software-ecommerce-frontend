@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { useAuth } from '../context/AuthContext'
+import React from "react";
 
 export default function Home() {
+
 
   const products = [
     {

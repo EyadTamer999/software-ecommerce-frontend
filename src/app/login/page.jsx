@@ -7,12 +7,12 @@ import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const apiUrl = process.env.NEXT_PUBLIC_API_GATEWAY_URL;
+  // const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
   const [notification, setNotification] = useState({ message: '', type: '' });
 
-  // const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -41,9 +41,10 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(payload))
         
         setNotification({ message: 'Login successful!', type: 'success' });
-        // setTimeout(() => {
-        //   router.push('/profile');
-        // }, 2000); // Redirect after 2 seconds
+        setTimeout(() => {
+          // router.push('/');
+          window.location.href = '/';
+        }, 2000); // Redirect after 2 seconds
       }
     } catch (err) {
       setNotification({ message: 'An unexpected error occurred', type: 'error' });
@@ -98,7 +99,7 @@ const Login = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter a valied email"
+                    placeholder="Enter a valid email"
                     class="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
                   />
                   <label
