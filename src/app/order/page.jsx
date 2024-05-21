@@ -76,21 +76,41 @@ const Order = () => {
                     </div>
                     
                 </div>
-                <div className='card shadow-2xl px-10 py-1 sm:px-3 m-10 justify-center' >
+
+                
+                <div className='card shadow-2xl px-10 py-1 sm:px-3 m-10 justify-center'>
+                    <div className="justify-between mt-2 flex items-center">
+                        <input
+                            type="text"
+                            placeholder="Promo Code"
+                            className="input input-sm input-bordered mr-2 py-2 px-3"
+                        />
+                        <button
+                            className="btn btn-sm bg-gray-500 text-white px-3 py-2 rounded-md border-0"
+                        >
+                            Apply Promo Code
+                        </button>
+                    </div>
+
+                    <div className="flex justify-between text-base font-medium text-gray-900 px-2 py-1 sm:px-3 mt-2">
+                        <p>Tax:</p>
+                        <p>$262.00</p>
+                    </div>
+
                     <div className="flex justify-between text-base font-medium text-gray-900 px-2 py-1 sm:px-3">
-                                                        <p>Tax:</p>
-                                                        <p>$262.00</p>
-                                                    </div>
-                    <div className="flex justify-between text-base font-medium text-gray-900 px-2 py-1 sm:px-3">
-                                                        <p>products Price:</p>
-                                                        <p>$262.00</p>
-                                                    </div>
+                        <p>Products Price:</p>
+                        <p>$262.00</p>
+                    </div>
+
                     <div className="flex justify-between text-base font-medium text-gray-900 px-2 py-1 sm:px-3">
                         <p>Total:</p>
                         <p>$262.00</p>
-                    </div>  
-                    <button class="btn btn-block bg-origin-padding">Go To payment Method</button>                                                 
+                    </div>
+
+                    <button class="btn btn-block px-3 py-2 rounded-md mt-4 border-0">Go To Payment Method</button>
                 </div>
+
+                
                 
             </div>
             <div className="lg:w-1/2 p-2">
