@@ -76,7 +76,7 @@ const Order = () => {
                     </div>
                     
                 </div>
-                <div className='px-10 py-1 sm:px-3' >
+                <div className='card shadow-2xl px-10 py-1 sm:px-3 m-10 justify-center' >
                     <div className="flex justify-between text-base font-medium text-gray-900 px-2 py-1 sm:px-3">
                                                         <p>Tax:</p>
                                                         <p>$262.00</p>
@@ -89,11 +89,11 @@ const Order = () => {
                         <p>Total:</p>
                         <p>$262.00</p>
                     </div>  
-                    <button class="btn btn-block">Go To payment Method</button>                                                 
+                    <button class="btn btn-block bg-origin-padding">Go To payment Method</button>                                                 
                 </div>
                 
             </div>
-            <div className="lg:w-1/2 p-8">
+            <div className="lg:w-1/2 p-2">
                 <div className="hero bg-base-400" style={{ height: 'calc(100% - 1rem)' }}>
                     <div className="hero-content">
                         <div className="card shadow-2xl bg-base-100">
