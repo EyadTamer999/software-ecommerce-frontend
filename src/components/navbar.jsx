@@ -11,7 +11,7 @@ import Logo from "../../public/icon.svg";
 import Cart from "./cart";
 import { jwtDecode } from "jwt-decode";
 import { useSelector, useDispatch } from "react-redux";
-import { login, logout } from "@/app/GlobalRedux/Features/auth/AuthSlice";
+import { login, logout } from '../app/GlobalRedux/Features/auth/AuthSlice'
 import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
 const navigation = {
   categories: [
@@ -159,6 +159,7 @@ export default function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     dispatch(logout());
+    window.location.reload();
   };
 
   useEffect(() => {
