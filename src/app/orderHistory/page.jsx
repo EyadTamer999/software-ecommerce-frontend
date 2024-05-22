@@ -85,6 +85,7 @@ const OrderHistory = () => {
                 order._id === orderId ? { ...order, orderStatus: 'cancelled' } : order
             );
             setOrders(updatedOrders);
+            window.location.reload();
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
         }
