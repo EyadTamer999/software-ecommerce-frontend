@@ -9,7 +9,7 @@ const OrderHistory = () => {
 
     useEffect(() => {
         const fetchOrders = async () => {
-            const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiZHVsbGFoLmFib29vZkBnbWFpbC5jb20iLCJ1c2VyIjoiNjY0NWZhZTZkMzE2MzAzZjhhNGE1Y2YzIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE2Mzk4NjgxLCJleHAiOjE3MTY0MDIyODF9.T-yIHHdTKH3rKdI7fWqj20GD0rwXkUgWtFQ3_hbvXL0`; // Replace with the actual token
+            const token = localStorage.getItem('token'); // Replace with the actual token
 
             try {
                 const response = await fetch(`http://localhost:3001/order-gateway/get-orders-history`, {
