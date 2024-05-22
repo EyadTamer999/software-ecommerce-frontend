@@ -6,10 +6,11 @@ const OrderHistory = () => {
     const [message, setMessage] = useState('');
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchOrders = async () => {
-            const token = localStorage.getItem('token'); // Replace with the actual token
+            const token = localStorage.getItem('token');
 
             try {
                 const response = await fetch(`http://localhost:3001/order-gateway/get-orders-history`, {
@@ -18,17 +19,30 @@ const OrderHistory = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                //console.log("response: ", response); 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
 
                 const data = await response.json();
                 console.log("data: ", data);
-                setOrders(data.orders);
+
+                const sortedOrders = data.orders.sort((a, b) => {
+                    const statusOrder = ["open", "pending"];
+                    const statusA = statusOrder.indexOf(a.orderStatus.toLowerCase());
+                    const statusB = statusOrder.indexOf(b.orderStatus.toLowerCase());
+
+                    if (statusA === -1 && statusB === -1) return 0;
+                    if (statusA === -1) return 1;
+                    if (statusB === -1) return -1;
+                    return statusA - statusB;
+                });
+
+                setOrders(sortedOrders);
                 setMessage(data.message);
             } catch (error) {
                 console.error('There was a problem with the fetch operation:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
@@ -45,42 +59,87 @@ const OrderHistory = () => {
         setSelectedOrder(null);
     };
 
+    const handleCancelOrder = async (orderId) => {
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch(`http://localhost:3001/order-gateway/cancel-order/${orderId}`, {
+                method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // console.log("data: ", data);
+            if(data.message === "You can not cancel the order now 2 days passed"){
+                alert("You can not cancel the order 2 days passed");
+                return;
+            }
+
+            // Update the order status in the local state
+            const updatedOrders = orders.map(order => 
+                order._id === orderId ? { ...order, orderStatus: 'cancelled' } : order
+            );
+            setOrders(updatedOrders);
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+        }
+    };
+
     return (
         <div>
-            <div className="overflow-x-auto p-10">
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>OrderID</th>
-                            <th>Payment Status</th>
-                            <th>Order Status</th>
-                            <th>Created At</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {orders.map((order, index) => (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{order._id}</td>
-                                <td>{order.paymentStatus}</td>
-                                <td>{order.orderStatus}</td>
-                                <td>{order.createdAt}</td>
-                                <td>
-                                    <button
-                                        onClick={() => handleViewOrder(order)}
-                                        className="btn btn-info"
-                                    >
-                                        View Order
-                                    </button>
-                                </td>
+            {isLoading ? (
+                <div className="flex items-center justify-center h-screen">
+                    <span className="loading loading-dots loading-md"></span>
+                </div>
+            ) : (
+                <div className="overflow-x-auto p-10">
+                    <table className="table">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>OrderID</th>
+                                <th>Payment Status</th>
+                                <th>Order Status</th>
+                                <th>Created At</th>
+                                <th>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {orders.map((order, index) => (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{order._id}</td>
+                                    <td>{order.paymentStatus}</td>
+                                    <td>{order.orderStatus}</td>
+                                    <td>{order.createdAt}</td>
+                                    <td>
+                                        <button
+                                            onClick={() => handleViewOrder(order)}
+                                            className="btn btn-info"
+                                        >
+                                            View Order
+                                        </button>
+                                        {order.orderStatus.toLowerCase() === 'open' && (
+                                            <button
+                                                onClick={() => handleCancelOrder(order._id)}
+                                                className="btn btn-danger ml-2"
+                                            >
+                                                Cancel Order
+                                            </button>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
             {/* Modal */}
             {isModalOpen && (
