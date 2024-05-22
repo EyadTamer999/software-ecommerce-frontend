@@ -60,20 +60,33 @@ const Profile = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-
-    const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFobWVkZWhhYng2QGdtYWlsLmNvbSIsInVzZXIiOiI2NjQxMzg1N2IzODhiZTM4YzBmODJiNmEiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNjQwNTU2MCwiZXhwIjoxNzE2NDA5MTYwfQ.4eishPY85f1V0TFBOHB_Yf81a6w6ChNbnU_j5frl1XY`
-
     const [addressData, setAddressData] = useState([]);
+    const [oldPassword, setOldPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
 
-    const handleUpdatePassword = async (oldPassword, newPassword) => {
-        const response = await fetch(`http://localhost:3001/Users/update-password`, {
+    const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFobWVkZWhhYng2QGdtYWlsLmNvbSIsInVzZXIiOiI2NjQxMzg1N2IzODhiZTM4YzBmODJiNmEiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNjQxNjcwMiwiZXhwIjoxNzE2NDIwMzAyfQ.Iq34c5jnZD3FFKvL7pUnqtbLq6lDxC0rCHPF4Hu-Ylk`
+
+    
+
+    const handleUpdatePassword = async (e) => {
+        e.preventDefault();
+        // setIsPasswordModalOpen(true)
+
+        const input={
+            "oldpassword":oldPassword,
+            "newpassword":newPassword
+        }
+        console.log('oldpassword :', oldPassword, 'newpassword :', newPassword);
+        const response = await fetch(`http://localhost:3001/auth-gateway/Update-Password`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({ oldPassword, newPassword })
+            body: JSON.stringify(input) // Add this line
+
         });
+        console.log(response);
     
         if (response.ok) {
             console.log('Password updated successfully');
@@ -140,7 +153,7 @@ const Profile = () => {
     };
 
     const handleDeleteAddress = async (index) => {
-        const response = await fetch(`localhost:3000/Users/delete-address`, {
+        const response = await fetch(`localhost:3001/Users/delete-address`, {
             method: 'delete',
             headers: {
                 'Content-Type': 'application/json',
@@ -380,7 +393,7 @@ const Profile = () => {
                     <button
                         className="bg-green-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                         type="button"
-                        onClick={handleUpdatePassword}
+                        onClick={() => setIsPasswordModalOpen(true)}
                         // () => setIsPasswordModalOpen(true)
                     >
                         Update Password
@@ -470,34 +483,45 @@ const Profile = () => {
             )}
 
             {isPasswordModalOpen && (
-                <div className="fixed z-10 inset-0 overflow-y-auto bg-gray-500 bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-white rounded-lg shadow-xl w-1/3">
-                        <div className="p-6">
-                            <h2 className="text-2xl mb-4 text-center font-semibold">Update Password</h2>
-                            <form>
-                                <div className="mb-4">
-                                    <label htmlFor="oldPassword" className="block text-sm font-medium text-gray-700">Old Password</label>
-                                    <input id="oldPassword" type="password" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                                </div>
+            <div className="fixed z-10 inset-0 overflow-y-auto bg-gray-500 bg-opacity-50 flex items-center justify-center">
+                <div className="bg-white rounded-lg shadow-xl w-1/3">
+                    <div className="p-6">
+                        <h2 className="text-2xl mb-4 text-center font-semibold">Update Password</h2>
+                        {/* <form onSubmit={handleSubmit}> */}
+                            <div className="mb-4">
+                                <label htmlFor="oldPassword" className="block text-sm font-medium text-gray-700">Old Password</label>
+                                <input
+                                    id="oldPassword"
+                                    type="password"
+                                    value={oldPassword}
+                                    onChange={(e) => setOldPassword(e.target.value)}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                />
+                            </div>
 
-                                <div className="mb-4">
-                                    <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">New Password</label>
-                                    <input id="newPassword" type="password" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                                </div>
+                            <div className="mb-4">
+                                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">New Password</label>
+                                <input
+                                    id="newPassword"
+                                    type="password"
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                />
+                            </div>
 
-                                <div className="flex justify-between items-center">
-                                    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
-                                    <button onClick={() => setIsPasswordModalOpen(false)} className="text-gray-500 hover:text-gray-700">Close</button>
-                                </div>
-                            </form>
-                        </div>
+                            <div className="flex justify-between items-center">
+                                <button type="submit" onClick={handleUpdatePassword}className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
+                                <button  type="submit" onClick={() => setIsPasswordModalOpen(false)} className="text-gray-500 hover:text-gray-700">Close</button>
+                            </div>
+                        {/* </form> */}
                     </div>
                 </div>
-            )}
-
-
+            </div>
+        )}
         </div>
+
     );
 };
 
-export default Profile;    
+export default Profile;
