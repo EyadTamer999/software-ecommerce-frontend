@@ -34,7 +34,7 @@ const OrderHistory = () => {
     }, []);
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto p-10">
             <table className="table">
                 {/* head */}
                 <thead>
@@ -56,7 +56,16 @@ const OrderHistory = () => {
                         <td>{order.paymentStatus}</td>
                         <td>{order.orderStatus}</td>
                         <td>{order.createdAt}</td>
+                        <td>
+                        <button 
+                            onClick={() => handleViewOrder(order._id)} 
+                            className="btn btn-info"
+                        >
+                            View Order
+                        </button>
+                    </td>
                     </tr>
+                    
                 ))}
                 
                 
