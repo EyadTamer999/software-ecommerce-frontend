@@ -54,9 +54,9 @@ const OrderHistory = () => {
                         <tr>
                             <th></th>
                             <th>OrderID</th>
-                            <th>paymentStatus</th>
-                            <th>orderStatus</th>
-                            <th>createdAt</th>
+                            <th>Payment Status</th>
+                            <th>Order Status</th>
+                            <th>Created At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -84,24 +84,32 @@ const OrderHistory = () => {
 
             {/* Modal */}
             {isModalOpen && (
-                <div className="modal modal-open">
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">Order Details</h3>
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 p-6">
+                        <h3 className="font-bold text-xl mb-4">Order Details</h3>
                         {selectedOrder ? (
-                            <div>
+                            <div className="space-y-2">
                                 <p><strong>Order ID:</strong> {selectedOrder._id}</p>
                                 <p><strong>Payment Status:</strong> {selectedOrder.paymentStatus}</p>
                                 <p><strong>Order Status:</strong> {selectedOrder.orderStatus}</p>
                                 <p><strong>Created At:</strong> {selectedOrder.createdAt}</p>
-                                <p><strong>Created At:</strong> {selectedOrder.deliveryStatus}</p>
-                                <p><strong>Created At:</strong> {selectedOrder.couponCode}</p>
-                                <p><strong>Created At:</strong> {selectedOrder.totalAmount}</p>
+                                <p><strong>Delivery Status:</strong> {selectedOrder.deliveryStatus}</p>
+                                <p><strong>Coupon Code:</strong> {selectedOrder.couponCode}</p>
+                                <p><strong>Total Amount:</strong> {selectedOrder.totalAmount}</p>
+                                <div>
+                                    <strong>Order Items:</strong>
+                                    <ul className="list-disc list-inside ml-4">
+                                        {selectedOrder.orderItems.map((item, idx) => (
+                                            <li key={idx}>{item}</li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
                         ) : (
                             <p>Loading...</p>
                         )}
-                        <div className="modal-action">
-                            <button onClick={closeModal} className="btn">Close</button>
+                        <div className="modal-action mt-4">
+                            <button onClick={closeModal} className="btn btn-primary">Close</button>
                         </div>
                     </div>
                 </div>
