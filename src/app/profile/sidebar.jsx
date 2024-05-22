@@ -46,7 +46,7 @@ const Sidebar = () => {
                         {/* Orders */}
 
                         <a
-                            href="#orders"
+                            href="/orderHistory"
                             class="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
 
                         >

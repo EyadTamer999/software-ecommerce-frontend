@@ -21,7 +21,7 @@
 // export default Profile
 
 "use client";
-import Navbar from '@/components/navbar'
+import Navbar from '../../components/navbar';
 import React, { useState } from 'react'
 import Sidebar from './sidebar'
 // import profileReducer from './Features/profile/profileSlice';
