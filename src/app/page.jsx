@@ -9,7 +9,7 @@ export default function Home() {
     {
       id: 1,
       name: 'Wooden Stringer Pallets',
-      href: '#',
+      href: '/product/1',
       imageSrc: 'https://assets-global.website-files.com/64957750b431e096dc85ba1e/6496eeb0eaa2f396e6558dca_602e954fde741e1a8d28617f_Stringer-Pallet-1024x576.png',
       imageAlt: "Brown Wooden Stringer Pallets .",
       price: '$35',
