@@ -159,6 +159,7 @@ export default function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     dispatch(logout());
+    window.location.reload();
   };
 
   useEffect(() => {

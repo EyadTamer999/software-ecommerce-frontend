@@ -22,7 +22,6 @@ const OrderHistory = () => {
 
                 //check if Unauthorized redirect to home
                 if (response.status === 401) {
-                    alert("token expired")
                     window.location.href = '/';
                 } 
                 if (!response.ok) {
