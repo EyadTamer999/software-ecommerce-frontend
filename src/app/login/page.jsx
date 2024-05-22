@@ -42,7 +42,6 @@ const Login = () => {
         
         setNotification({ message: 'Login successful!', type: 'success' });
         setTimeout(() => {
-          // router.push('/');
           window.location.href = '/';
         }, 2000); // Redirect after 2 seconds
       }

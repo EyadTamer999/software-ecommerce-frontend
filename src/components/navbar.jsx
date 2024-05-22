@@ -12,6 +12,7 @@ import Cart from "./cart";
 import { jwtDecode } from "jwt-decode";
 import { useSelector, useDispatch } from "react-redux";
 import { login, logout } from "@/app/GlobalRedux/Features/auth/AuthSlice";
+import { Avatar, AvatarGroup, AvatarIcon } from "@nextui-org/avatar";
 const navigation = {
   categories: [
     {
@@ -154,13 +155,19 @@ export default function Navbar() {
   const user = useSelector((state) => state.auth.user);
   const storedUser = localStorage.getItem("user");
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    dispatch(logout());
+  };
+
   useEffect(() => {
     // console.log(user)
     console.log("is Auth", isAuthenticated);
     // console.log('stored user', storedUser)
     if (storedUser) {
       console.log("alo");
-      // const user = JSON.parse(storedUser);
+      const userObject = JSON.parse(storedUser);
       dispatch(login(storedUser));
       console.log("user", user);
     }
@@ -336,7 +343,7 @@ export default function Navbar() {
                   {
                     <div className="flow-root">
                       <button
-                        // onClick={logout}
+                        onClick={handleLogout}
                         className="-m-2 block p-2 font-medium text-gray-900"
                       >
                         Sign out
@@ -349,12 +356,12 @@ export default function Navbar() {
                 <div className="border-t border-gray-200 px-4 py-6">
                   <a href="#" className="-m-2 flex items-center p-2">
                     <img
-                      src="https://tailwindui.com/img/flags/flag-canada.svg"
+                      src="https://tailwindui.com/img/flags/flag-egypt.svg"
                       alt=""
                       className="block h-auto w-5 flex-shrink-0"
                     />
                     <span className="ml-3 block text-base font-medium text-gray-900">
-                      CADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+                      EGP
                     </span>
                     <span className="sr-only">, change currency</span>
                   </a>
@@ -520,38 +527,51 @@ export default function Navbar() {
 
               <div className="ml-auto flex items-center">
                 {!isAuthenticated ? (
-                <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a
-                    href="/login"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Sign in
-                  </a>
-                  <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a
-                    href="/signup"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Create account
-                  </a>
-                </div>
-                ) :
-                (
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a
-                    href="/login"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Hello, {user.firstName}
-                  </a>
-                  <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                  <a
-                    href="/signup"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Create account
-                  </a>
-                </div>
+                    <a
+                      href="/login"
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Sign in
+                    </a>
+                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                    <a
+                      href="/signup"
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Create account
+                    </a>
+                  </div>
+                ) : (
+                  <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                    <a
+                      href="/profile"
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      {/* <Avatar showFallback isBordered src="https://images.unsplash.com/broken" /> */}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6 shrink-0"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                        />
+                      </svg>
+                    </a>
+                    <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
+                    <button
+                      onClick={handleLogout}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
                 )}
 
                 <div className="hidden lg:ml-8 lg:flex">
