@@ -19,6 +19,12 @@ const OrderHistory = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 });
+
+                //check if Unauthorized redirect to home
+                if (response.status === 401) {
+                    alert("token expired")
+                    window.location.href = '/';
+                } 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -61,6 +67,7 @@ const OrderHistory = () => {
 
     const handleCancelOrder = async (orderId) => {
         const token = localStorage.getItem('token');
+        console.log("roleeeeee: ", localStorage.getItem('role'));
 
         try {
             const response = await fetch(`http://localhost:3001/order-gateway/cancel-order/${orderId}`, {
