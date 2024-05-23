@@ -66,30 +66,6 @@ const initialReviews = [
     text: "Good value for money. Will buy again.",
     author: "Jane Smith",
   },
-  {
-    id: 2,
-    rating: 4,
-    text: "Good value for money. Will buy again.",
-    author: "Jane Smith",
-  },
-  {
-    id: 2,
-    rating: 4,
-    text: "Good value for money. Will buy again.",
-    author: "Jane Smith",
-  },
-  {
-    id: 2,
-    rating: 4,
-    text: "Good value for money. Will buy again.",
-    author: "Jane Smith",
-  },
-  {
-    id: 2,
-    rating: 4,
-    text: "Good value for money. Will buy again.",
-    author: "Jane Smith",
-  },
 ]
 
 function classNames(...classes) {
@@ -310,6 +286,27 @@ export default function Product() {
               >
                 Add to cart
               </button>
+
+              <div className="mt-4 flex space-x-4">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Rent
+                </button>
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Add to Wishlist
+                </button>
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Add to Favorites
+                </button>
+              </div>
             </form>
           </div>
 
