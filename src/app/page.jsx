@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { useAuth } from '../context/AuthContext'
 import React from "react";
 
 export default function Home() {
@@ -18,7 +16,25 @@ export default function Home() {
     {
       id: 2,
       name: 'Basic Tee',
-      href: '#',
+      href: '/product/2',
+      imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
+      imageAlt: "Front of men's Basic Tee in black.",
+      price: '$35',
+      color: 'Black',
+    },
+    {
+      id: 1,
+      name: 'Wooden Stringer Pallets',
+      href: '/product/1',
+      imageSrc: 'https://assets-global.website-files.com/64957750b431e096dc85ba1e/6496eeb0eaa2f396e6558dca_602e954fde741e1a8d28617f_Stringer-Pallet-1024x576.png',
+      imageAlt: "Brown Wooden Stringer Pallets .",
+      price: '$35',
+      color: 'Brown',
+    },
+    {
+      id: 2,
+      name: 'Basic Tee',
+      href: '/product/2',
       imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
       imageAlt: "Front of men's Basic Tee in black.",
       price: '$35',
