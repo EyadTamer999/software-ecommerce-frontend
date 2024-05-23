@@ -3,7 +3,7 @@ import './globals.css'
 import { Providers } from "./GlobalRedux/provider";
 import Navbar from '../components/navbar/navbar'
 import Footer from '../components/footer'
-// import { AuthProvider } from '../context/AuthContext'
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +17,9 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="light">
       <body className={inter.className}>
         <Providers>
-          {/* <AuthProvider> */}
           <Navbar />
           {children}
           <Footer />
-          {/* </AuthProvider> */}
         </Providers>
       </body>
     </html>
