@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    cart: [],
+    cart: [], //TODO get the cart from the local storage
 }
 
 const cartSlice = createSlice({

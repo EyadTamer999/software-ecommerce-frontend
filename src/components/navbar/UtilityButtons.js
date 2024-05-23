@@ -1,9 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HeartIcon, ShoppingBagIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function UtilityButtons({ setOpenCart, setOpenWishlist }) {
     const [searchOpen, setSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+
+    const [cartItemCount, setCartItemCount] = useState(0);
+    const [wishlistItemCount, setWishlistItemCount] = useState(0);
+
+    useEffect(() => {
+        //TODO get cart and wishlist items count from the local storage
+
+    }, []);
 
     const handleSearchClick = () => {
         setSearchOpen(!searchOpen);
@@ -50,7 +58,7 @@ export default function UtilityButtons({ setOpenCart, setOpenWishlist }) {
             <div className="ml-4 flow-root lg:ml-6">
                 <button onClick={() => setOpenWishlist(true)} className="group -m-2 flex items-center p-2">
                     <HeartIcon className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{wishlistItemCount}</span>
                     <span className="sr-only">items in wishlist, view wishlist</span>
                 </button>
             </div>
@@ -59,7 +67,7 @@ export default function UtilityButtons({ setOpenCart, setOpenWishlist }) {
             <div className="ml-4 flow-root lg:ml-6">
                 <button onClick={() => setOpenCart(true)} className="group -m-2 flex items-center p-2">
                     <ShoppingBagIcon className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{cartItemCount}</span>
                     <span className="sr-only">items in cart, view bag</span>
                 </button>
             </div>

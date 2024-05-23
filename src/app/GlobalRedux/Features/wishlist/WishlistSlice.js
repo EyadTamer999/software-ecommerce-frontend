@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    wishlist: [],
+    wishlist: [], //TODO get the wishlist from the local storage
 }
 
 const wishlistSlice = createSlice({

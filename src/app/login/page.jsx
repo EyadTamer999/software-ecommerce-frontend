@@ -1,13 +1,13 @@
 "use client";
-
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import Notification from '../../components/notification';
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
     const apiUrl = process.env.NEXT_PUBLIC_API_GATEWAY_URL;
     // const router = useRouter();
+
+    // TODO after login, save user data in redux store, save cart data in redux store, save wishlist data in redux store
 
     const [email, setEmail] = useState("");
     const [password, setPassowrd] = useState("");

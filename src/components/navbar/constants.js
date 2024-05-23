@@ -1,129 +1,159 @@
 export const navigation = {
     categories: [
         {
-            id: "women",
-            name: "Women",
+            id: "wooden-pallets",
+            name: "Wooden Pallets",
             featured: [
                 {
-                    name: "New Arrivals",
+                    name: "Standard Wooden Pallets",
                     href: "#",
-                    imageSrc:
-                        "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
-                    imageAlt:
-                        "Models sitting back to back, wearing Basic Tee in black and bone.",
+                    imageSrc: "https://example.com/images/wooden-pallets-01.jpg",
+                    imageAlt: "Standard wooden pallets stacked in a warehouse.",
                 },
                 {
-                    name: "Basic Tees",
+                    name: "Custom Wooden Pallets",
                     href: "#",
-                    imageSrc:
-                        "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
-                    imageAlt:
-                        "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
+                    imageSrc: "https://example.com/images/wooden-pallets-02.jpg",
+                    imageAlt: "Custom wooden pallets for specialized uses.",
                 },
             ],
             sections: [
                 {
-                    id: "clothing",
-                    name: "Clothing",
+                    id: "types",
+                    name: "Types",
                     items: [
-                        { name: "Tops", href: "#" },
-                        { name: "Dresses", href: "#" },
-                        { name: "Pants", href: "#" },
-                        { name: "Denim", href: "#" },
-                        { name: "Sweaters", href: "#" },
-                        { name: "T-Shirts", href: "#" },
-                        { name: "Jackets", href: "#" },
-                        { name: "Activewear", href: "#" },
-                        { name: "Browse All", href: "#" },
+                        { name: "Standard", href: "#" },
+                        { name: "Custom", href: "#" },
+                        { name: "Heat-Treated", href: "#" },
+                        { name: "Euro Pallets", href: "#" },
+                        { name: "Block Pallets", href: "#" },
                     ],
                 },
                 {
-                    id: "accessories",
-                    name: "Accessories",
+                    id: "sizes",
+                    name: "Sizes",
                     items: [
-                        { name: "Watches", href: "#" },
-                        { name: "Wallets", href: "#" },
-                        { name: "Bags", href: "#" },
-                        { name: "Sunglasses", href: "#" },
-                        { name: "Hats", href: "#" },
-                        { name: "Belts", href: "#" },
+                        { name: "48x40", href: "#" },
+                        { name: "42x42", href: "#" },
+                        { name: "48x48", href: "#" },
+                        { name: "Custom Sizes", href: "#" },
                     ],
                 },
                 {
                     id: "brands",
                     name: "Brands",
                     items: [
-                        { name: "Full Nelson", href: "#" },
-                        { name: "My Way", href: "#" },
-                        { name: "Re-Arranged", href: "#" },
-                        { name: "Counterfeit", href: "#" },
-                        { name: "Significant Other", href: "#" },
+                        { name: "EcoPallet", href: "#" },
+                        { name: "GreenPallet", href: "#" },
+                        { name: "StrongPallet", href: "#" },
+                        { name: "DurablePallet", href: "#" },
                     ],
                 },
             ],
         },
         {
-            id: "men",
-            name: "Men",
+            id: "plastic-pallets",
+            name: "Plastic Pallets",
             featured: [
                 {
-                    name: "New Arrivals",
+                    name: "Lightweight Plastic Pallets",
                     href: "#",
-                    imageSrc:
-                        "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
-                    imageAlt:
-                        "Drawstring top with elastic loop closure and textured interior padding.",
+                    imageSrc: "https://example.com/images/plastic-pallets-01.jpg",
+                    imageAlt: "Lightweight plastic pallets in different colors.",
                 },
                 {
-                    name: "Artwork Tees",
+                    name: "Heavy-Duty Plastic Pallets",
                     href: "#",
-                    imageSrc:
-                        "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
-                    imageAlt:
-                        "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
+                    imageSrc: "https://example.com/images/plastic-pallets-02.jpg",
+                    imageAlt: "Heavy-duty plastic pallets for industrial use.",
                 },
             ],
             sections: [
                 {
-                    id: "clothing",
-                    name: "Clothing",
+                    id: "types",
+                    name: "Types",
                     items: [
-                        { name: "Tops", href: "#" },
-                        { name: "Pants", href: "#" },
-                        { name: "Sweaters", href: "#" },
-                        { name: "T-Shirts", href: "#" },
-                        { name: "Jackets", href: "#" },
-                        { name: "Activewear", href: "#" },
-                        { name: "Browse All", href: "#" },
+                        { name: "Lightweight", href: "#" },
+                        { name: "Heavy-Duty", href: "#" },
+                        { name: "Nestable", href: "#" },
+                        { name: "Rackable", href: "#" },
+                        { name: "Export Pallets", href: "#" },
                     ],
                 },
                 {
-                    id: "accessories",
-                    name: "Accessories",
+                    id: "sizes",
+                    name: "Sizes",
                     items: [
-                        { name: "Watches", href: "#" },
-                        { name: "Wallets", href: "#" },
-                        { name: "Bags", href: "#" },
-                        { name: "Sunglasses", href: "#" },
-                        { name: "Hats", href: "#" },
-                        { name: "Belts", href: "#" },
+                        { name: "48x40", href: "#" },
+                        { name: "42x42", href: "#" },
+                        { name: "48x48", href: "#" },
+                        { name: "Custom Sizes", href: "#" },
                     ],
                 },
                 {
                     id: "brands",
                     name: "Brands",
                     items: [
-                        { name: "Re-Arranged", href: "#" },
-                        { name: "Counterfeit", href: "#" },
-                        { name: "Full Nelson", href: "#" },
-                        { name: "My Way", href: "#" },
+                        { name: "EcoPallet", href: "#" },
+                        { name: "GreenPallet", href: "#" },
+                        { name: "StrongPallet", href: "#" },
+                        { name: "DurablePallet", href: "#" },
+                    ],
+                },
+            ],
+        },
+        {
+            id: "metal-pallets",
+            name: "Metal Pallets",
+            featured: [
+                {
+                    name: "Aluminum Pallets",
+                    href: "#",
+                    imageSrc: "https://example.com/images/metal-pallets-01.jpg",
+                    imageAlt: "Aluminum pallets for heavy-duty applications.",
+                },
+                {
+                    name: "Steel Pallets",
+                    href: "#",
+                    imageSrc: "https://example.com/images/metal-pallets-02.jpg",
+                    imageAlt: "Steel pallets for industrial use.",
+                },
+            ],
+            sections: [
+                {
+                    id: "types",
+                    name: "Types",
+                    items: [
+                        { name: "Aluminum", href: "#" },
+                        { name: "Steel", href: "#" },
+                        { name: "Custom Metal Pallets", href: "#" },
+                    ],
+                },
+                {
+                    id: "sizes",
+                    name: "Sizes",
+                    items: [
+                        { name: "48x40", href: "#" },
+                        { name: "42x42", href: "#" },
+                        { name: "48x48", href: "#" },
+                        { name: "Custom Sizes", href: "#" },
+                    ],
+                },
+                {
+                    id: "brands",
+                    name: "Brands",
+                    items: [
+                        { name: "EcoPallet", href: "#" },
+                        { name: "GreenPallet", href: "#" },
+                        { name: "StrongPallet", href: "#" },
+                        { name: "DurablePallet", href: "#" },
                     ],
                 },
             ],
         },
     ],
     pages: [
-        { name: "New Palletes", href: "#" },
+        { name: "New Pallets", href: "#" },
         { name: "Trending 🔥", href: "#" },
     ],
 };
@@ -131,71 +161,47 @@ export const navigation = {
 export const cartProducts = [
     {
         id: 1,
-        name: 'Throwback Hip Bag',
+        name: 'Standard Wooden Pallet',
         href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
+        type: 'Wooden',
+        price: 'EGP 15.00',
+        quantity: 5,
+        imageSrc: 'https://example.com/images/wooden-pallet-01.jpg',
+        imageAlt: 'Standard wooden pallet.',
     },
     {
         id: 2,
-        name: 'Medium Stuff Satchel',
+        name: 'Heavy-Duty Plastic Pallet',
         href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+        type: 'Plastic',
+        price: 'EGP 25.00',
+        quantity: 3,
+        imageSrc: 'https://example.com/images/plastic-pallet-01.jpg',
+        imageAlt: 'Heavy-duty plastic pallet.',
     },
     // More cartProducts...
-]
+];
 
 export const wishlistProducts = [
     {
         id: 1,
-        name: 'Throwback Hip Bag',
+        name: 'Standard Wooden Pallet',
         href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
+        type: 'Wooden',
+        price: 'EGP 15.00',
+        quantity: 5,
+        imageSrc: 'https://example.com/images/wooden-pallet-01.jpg',
+        imageAlt: 'Standard wooden pallet.',
     },
     {
         id: 2,
-        name: 'Medium Stuff Satchel',
+        name: 'Lightweight Plastic Pallet',
         href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+        type: 'Plastic',
+        price: 'EGP 20.00',
+        quantity: 10,
+        imageSrc: 'https://example.com/images/plastic-pallet-02.jpg',
+        imageAlt: 'Lightweight plastic pallet.',
     },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    },
-    // More cartProducts...
-]
+    // More wishlistProducts...
+];
