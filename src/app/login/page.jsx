@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Notification from '../../components/notification';
+import Notification from "../../components/notification";
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
@@ -11,16 +11,14 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassowrd] = useState("");
-  const [notification, setNotification] = useState({ message: '', type: '' });
-
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setNotification({message: '', type: ''});
-    // `${apiUrl}/auth-gateway/login`
+    setNotification({ message: "", type: "" });
 
     try {
-      const response = await fetch(`http://localhost:3001/auth-gateway/login`, {
+      const response = await fetch(`${apiUrl}/auth-gateway/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,23 +29,29 @@ const Login = () => {
       const result = await response.json();
 
       if (!response.ok) {
-        setNotification({ message: result.error || 'Login failed', type: 'error' });
+        setNotification({
+          message: result.error || "Login failed",
+          type: "error",
+        });
       } else {
         // Handle successful login
         const token = result.access_token;
         const payload = jwtDecode(token);
 
-        localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify(payload))
-        localStorage.setItem('role', payload.role )
-        
-        setNotification({ message: 'Login successful!', type: 'success' });
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(payload));
+        localStorage.setItem("role", payload.role);
+
+        setNotification({ message: "Login successful!", type: "success" });
         setTimeout(() => {
-          window.location.href = '/';
+          window.location.href = "/";
         }, 2000); // Redirect after 2 seconds
       }
     } catch (err) {
-      setNotification({ message: 'An unexpected error occurred', type: 'error' });
+      setNotification({
+        message: "An unexpected error occurred",
+        type: "error",
+      });
       console.error("Login error:", err);
     }
   };
@@ -55,11 +59,11 @@ const Login = () => {
   return (
     <>
       <div>
-      <Notification 
-        message={notification.message} 
-        type={notification.type} 
-        onClose={() => setNotification({ message: '', type: '' })} 
-      />
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification({ message: "", type: "" })}
+        />
         <div class="flex justify-center w-full h-full my-auto xl:gap-14 lg:justify-normal md:gap-5 draggable">
           <div class="flex items-center justify-center w-full lg:p-12">
             <div class="flex items-center xl:p-10">
@@ -73,7 +77,10 @@ const Login = () => {
                 <p class="mb-4 text-base-content">
                   Enter your email and password
                 </p>
-                <button type="button" class="px-4 py-2 border flex gap-2 btn bg-base-100 rounded-2xl">
+                <button
+                  type="button"
+                  class="px-4 py-2 border flex gap-2 btn bg-base-100 rounded-2xl"
+                >
                   <img
                     class="w-6 h-6"
                     src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -84,7 +91,9 @@ const Login = () => {
                 </button>
                 <div class="flex items-center mb-3">
                   <hr class="h-0 border-b border-solid border-base-200 grow" />
-                  <p class="mx-4 text-base-content"><strong>or</strong></p>
+                  <p class="mx-4 text-base-content">
+                    <strong>or</strong>
+                  </p>
                   <hr class="h-0 border-b border-solid border-base-200 grow" />
                 </div>
                 <div class="flex flex-col space-y-3 mb-5">
@@ -135,7 +144,10 @@ const Login = () => {
                     Forgot password?
                   </a>
                 </div>
-                <button type="submit" class="w-full btn btn-primary rounded-2xl ">
+                <button
+                  type="submit"
+                  class="w-full btn btn-primary rounded-2xl "
+                >
                   Sign In
                 </button>
                 <p class="text-sm leading-relaxed text-base-content mt-3">

@@ -21,8 +21,10 @@
 // export default Profile
 
 "use client";
+
 import Navbar from '../../components/navbar';
 import React, { useState, useEffect } from 'react'
+
 import Sidebar from './sidebar'
 import { user } from '@nextui-org/react';
 // import profileReducer from './Features/profile/profileSlice';
