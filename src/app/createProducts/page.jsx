@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { storage } from "../../config/firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from 'uuid';
+import { createProduct } from './fetchApi';
 
 const CreateProducts = () => {
   const [data, setData] = useState({
@@ -70,8 +71,8 @@ const CreateProducts = () => {
     e.preventDefault();
     try {
       const uploadedImageUrls = await handleImageUpload();
-      setData({ ...data, images: uploadedImageUrls });
-      console.log({ ...data, images: uploadedImageUrls });
+      setData({ ...data, images: uploadedImageUrls })
+      createProduct(data);
     } catch (error) {
       console.error("Error uploading images:", error);
     }

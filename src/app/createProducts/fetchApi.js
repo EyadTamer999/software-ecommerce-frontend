@@ -1,27 +1,28 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_GATEWAY_URL + "/Product"
 
-export const creatProduct = async (product) => {
+export const createProduct = async (product) => {
 
-    let formData = new FormData();
-    formData.append("name", product.name);
-    formData.append("category", product.category);
-    formData.append("discount", product.discount);
-    formData.append("description", product.description);
-    formData.append("images", product.images);
-    formData.append("buyPrice", product.buyPrice);
-    formData.append("rentPrice", product.rentPrice);
-    formData.append("availability", product.availability);
-    formData.append("stock", product.stock);
-    formData.append("specifications", product.specifications);
-
+    let data = {
+        name: product.name,
+        category: product.category,
+        discount: product.discount,
+        description: product.description,
+        images: product.images,
+        buy_price: product.buyPrice,
+        rent_price: product.rentPrice,
+        availability: product.availability,
+        stock: product.stock,
+        specifications: product.specifications,
+    }
 
     const response = await fetch(BASE_URL + "/createProduct",
         {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: formData
+            body: JSON.stringify(data)
         }).then((response) => {
             return response.json();
         }
