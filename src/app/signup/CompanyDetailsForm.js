@@ -59,7 +59,7 @@ const CompanyDetailsForm = ({ data, setData, handleChange }) => {
           </label>
           <input
             onChange={(e) => handleChange(key, e.target.value)}
-            value={data.companyAddress[key] || ""}
+            value={data.address[key] || ""}
             type="text"
             placeholder={placeholder}
             className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"

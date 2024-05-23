@@ -43,7 +43,7 @@ const ReviewSubmitForm = ({ data }) => {
         <div className="grid grid-cols-2 gap-4">
           {renderData({
             companyName: data.companyName,
-            ...data.companyAddress,
+            ...data.address,
           })}
         </div>
       </div>
