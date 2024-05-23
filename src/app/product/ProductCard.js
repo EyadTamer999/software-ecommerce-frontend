@@ -3,28 +3,29 @@ import { HeartIcon } from '@heroicons/react/20/solid';
 
 export default function ProductCard({ product }) {
     return (
-        <div key={product.id} className="group relative">
-            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    href={product.href}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-            </div>
-            <div className="mt-4 flex justify-between">
-                <div>
-                    <h3 className="text-sm text-gray-700">
-                        <a>
-                            <span aria-hidden="true" className="absolute inset-0" />
-                            {product.name}
-                        </a>
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+        <div className='flex flex-col items-center justify-center'>
+            <div key={product.id} className="group relative">
+                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                    <img
+                        src={product.imageSrc}
+                        alt={product.imageAlt}
+                        className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    />
                 </div>
-                <p className="text-sm font-medium text-gray-900">{product.price}</p>
+                <div className="mt-4 flex justify-between">
+                    <div>
+                        <h3 className="text-sm text-gray-700">
+                            <a href={product.href} >
+                                <span aria-hidden="true" className="absolute inset-0" />
+                                {product.name}
+                            </a>
+                        </h3>
+                        <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                    </div>
+                    <p className="text-sm font-medium text-gray-900">{product.price}</p>
+                </div>
             </div>
-            <div className="mt-2 flex space-x-2">
+            <div className="mt-2 flex space-x-2 w-full">
                 <button
                     type="button"
                     className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
