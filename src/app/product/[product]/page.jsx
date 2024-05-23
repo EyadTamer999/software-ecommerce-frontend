@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
+import ReviewsList from './ReviewsList'
+import ReviewForm from './ReviewForm'
 
 const product = {
   name: 'Standard Wooden Pallet',
@@ -50,7 +52,45 @@ const product = {
   details:
     'Our wooden pallets are treated to meet international shipping standards. Available in standard and custom sizes to fit your specific needs.',
 }
-const reviews = { href: '#', average: 4.5, totalCount: 87 }
+
+const initialReviews = [
+  {
+    id: 1,
+    rating: 5,
+    text: "Great quality pallets, very sturdy and durable.",
+    author: "John Doe",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -59,6 +99,11 @@ function classNames(...classes) {
 export default function Product() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState(product.sizes[0])
+  const [reviews, setReviews] = useState(initialReviews)
+
+  const handleReviewSubmit = (newReview) => {
+    setReviews([...reviews, { ...newReview, id: reviews.length + 1 }])
+  }
 
   return (
     <div className="bg-white">
@@ -146,16 +191,16 @@ export default function Product() {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
+                        product.rating > rating ? 'text-gray-900' : 'text-gray-200',
                         'h-5 w-5 flex-shrink-0'
                       )}
                       aria-hidden="true"
                     />
                   ))}
                 </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
+                <p className="sr-only">{product.rating} out of 5 stars</p>
                 <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  {reviews.totalCount} reviews
+                  {product.totalCount} reviews
                 </a>
               </div>
             </div>
@@ -299,6 +344,12 @@ export default function Product() {
                 <p className="text-sm text-gray-600">{product.details}</p>
               </div>
             </div>
+
+            {/* Reviews Section */}
+            <ReviewsList reviews={reviews} />
+
+            {/* Review Form */}
+            <ReviewForm onSubmit={handleReviewSubmit} />
           </div>
         </div>
       </div>
