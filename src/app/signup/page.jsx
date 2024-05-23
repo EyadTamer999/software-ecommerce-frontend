@@ -162,7 +162,7 @@ const Signup = () => {
                         for="name"
                         className="mb-2 text-sm text-start text-base-content"
                       >
-                        First Name*
+                        <strong>First Name</strong>
                       </label>
                       <input
                         onChange={(e) =>
@@ -179,7 +179,7 @@ const Signup = () => {
                         for="last name"
                         className="mb-2 text-sm text-start text-base-content"
                       >
-                        Last Name*
+                        <strong>Last Name</strong>
                       </label>
                       <input
                         onChange={(e) =>
@@ -196,7 +196,7 @@ const Signup = () => {
                         for="phone"
                         className="mb-2 text-sm text-start text-base-content"
                       >
-                        Phone Number*
+                        <strong>Phone Number</strong>
                       </label>
                       <input
                         onChange={(e) =>
@@ -213,7 +213,7 @@ const Signup = () => {
                         for="email"
                         className="mb-2 text-sm text-start text-base-content"
                       >
-                        Email*
+                        <strong>Email</strong>
                       </label>
                       <input
                         onChange={(e) =>
@@ -230,7 +230,7 @@ const Signup = () => {
                         for="password"
                         className="mb-2 text-sm text-start text-base-content"
                       >
-                        Password*
+                        <strong>Password</strong>
                       </label>
                       <input
                         onChange={(e) =>
@@ -247,7 +247,7 @@ const Signup = () => {
                         for="confirm password"
                         className="mb-2 text-sm text-start text-base-content"
                       >
-                        Confirm Password*
+                        <strong>Confirm Password</strong>
                       </label>
                       <input
                         onChange={(e) =>
@@ -266,15 +266,18 @@ const Signup = () => {
               {currentStepIndex === 1 && (
                 <>
                   {/* Company Details Form */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4 justify-center">
                     <div className="flex flex-col space-y-3 mb-5">
                       <label
                         for="company name"
                         className="mb-2 text-sm text-start text-base-content"
                       >
-                        Company Name*
+                        <strong>Company Name</strong>
                       </label>
                       <input
+                      onChange={(e) =>
+                        setData({ ...data, companyName: e.target.value })
+                      }
                         id="company name"
                         type="text"
                         placeholder="Enter your company name"
@@ -283,15 +286,127 @@ const Signup = () => {
                     </div>
                     <div className="flex flex-col space-y-3 mb-5">
                       <label
+                        for="street name"
+                        className="mb-2 text-sm text-start text-base-content"
+                      >
+                        <strong>Street Name</strong>
+                      </label>
+                      <input
+                        id="street name"
+                        type="text"
+                        placeholder="Enter company's street name"
+                        className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-3 mb-5">
+                      <label
                         for="company address"
                         className="mb-2 text-sm text-start text-base-content"
                       >
-                        Company Address*
+                        <strong>Building</strong>
                       </label>
                       <input
-                        id="company address"
+                        id="building"
                         type="text"
-                        placeholder="Enter your company address"
+                        placeholder="Enter company's building"
+                        className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-3 mb-5">
+                      <label
+                        for="company apartment"
+                        className="mb-2 text-sm text-start text-base-content"
+                      >
+                        <strong>Apartment</strong>
+                      </label>
+                      <input
+                        id="company apatment"
+                        type="text"
+                        placeholder="Enter company's apartment"
+                        className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-3 mb-5">
+                      <label
+                        for="company floor"
+                        className="mb-2 text-sm text-start text-base-content"
+                      >
+                        <strong>Floor</strong>
+                      </label>
+                      <input
+                        id="company floor"
+                        type="text"
+                        placeholder="Enter company's floor"
+                        className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-3 mb-5">
+                      <label
+                        for="company country"
+                        className="mb-2 text-sm text-start text-base-content"
+                      >
+                        <strong>Country</strong>
+                      </label>
+                      <input
+                        id="company country"
+                        type="text"
+                        placeholder="Enter company's country"
+                        className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-3 mb-5">
+                      <label
+                        for="company state"
+                        className="mb-2 text-sm text-start text-base-content"
+                      >
+                        <strong>State</strong>
+                      </label>
+                      <input
+                        id="company state"
+                        type="text"
+                        placeholder="Enter company's state"
+                        className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-3 mb-5">
+                      <label
+                        for="company city"
+                        className="mb-2 text-sm text-start text-base-content"
+                      >
+                        <strong>City</strong>
+                      </label>
+                      <input
+                        id="company city"
+                        type="text"
+                        placeholder="Enter company's city"
+                        className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-3 mb-5">
+                      <label
+                        for="company postal code"
+                        className="mb-2 text-sm text-start text-base-content"
+                      >
+                        <strong>Postal Code</strong>
+                      </label>
+                      <input
+                        id="company postal code"
+                        type="text"
+                        placeholder="Enter company's postal code"
+                        className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
+                      />
+                    </div>
+                    <div className="flex flex-col space-y-3 mb-5">
+                      <label
+                        for="company extra"
+                        className="mb-2 text-sm text-start text-base-content"
+                      >
+                        <strong>Extra description</strong>
+                      </label>
+                      <input
+                        id="company extra"
+                        type="text"
+                        placeholder="Enter extra decription"
                         className="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none input input-primary rounded-2xl"
                       />
                     </div>
