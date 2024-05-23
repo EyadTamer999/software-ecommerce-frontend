@@ -1,5 +1,5 @@
 "use client";
-import Navbar from '../../components/navbar'
+import Navbar from '../../components/navbar';
 import React, { useState } from 'react'
 import Sidebar from './sidebar'
 

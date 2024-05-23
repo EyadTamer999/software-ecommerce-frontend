@@ -168,6 +168,7 @@ export default function Navbar() {
     setTimeout(() => {
       window.location.href = "/";
     }, 2000); // Redirect after 2 seconds
+
   };
 
   useEffect(() => {
