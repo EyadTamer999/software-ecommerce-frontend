@@ -1,6 +1,7 @@
 export const HandleSignup = async (data) => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_GATEWAY_URL
     try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        const response = await fetch(`${apiUrl}/auth-gateway/verify`, {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

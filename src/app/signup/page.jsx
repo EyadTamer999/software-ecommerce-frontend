@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import StepIndicator from './StepIndicator';
-import PersonalInformationForm from './PersonalInformationForm';
-import CompanyDetailsForm from './CompanyDetailsForm';
-import ReviewSubmitForm from './ReviewSubmitForm';
+import React, { useState, useEffect } from "react";
+import StepIndicator from "./StepIndicator";
+import PersonalInformationForm from "./PersonalInformationForm";
+import CompanyDetailsForm from "./CompanyDetailsForm";
+import ReviewSubmitForm from "./ReviewSubmitForm";
+import { HandleSignup } from "./fetchApi";
 
 const Signup = () => {
   const [stepsData, setStepsData] = useState([
@@ -49,8 +50,27 @@ const Signup = () => {
   const [ErrorMessage, setErrorMessage] = useState("");
   const [Error, setError] = useState(false);
 
-  const handleNextStep = () => {
-    const newStepsData = stepsData.map((step, index) => {
+  const handleNextStep = async () => {
+    if (currentStepIndex === stepsData.length - 1) {
+      // Final step, call HandleSignup
+      try {
+        const response = await HandleSignup(data);
+        if (response.success) {
+          // Handle successful signup (e.g., navigate to another page or show a success message)
+          console.log("Signup successful:", response);
+        } else {
+          // Handle errors returned by the API
+          setErrorMessage(response.message || "Signup failed");
+          setError(true);
+        }
+      } catch (error) {
+        // Handle fetch error
+        console.error("Signup error:", error);
+        setErrorMessage("Signup failed due to an unexpected error");
+        setError(true);
+      }
+    } else {
+      // Validate current step and move to the next step
       if (currentStepIndex === 0) {
         if (
           data.firstName === "" ||
@@ -62,7 +82,7 @@ const Signup = () => {
         ) {
           setErrorMessage("Please fill all fields");
           setError(true);
-          return step;
+          return;
         }
       }
 
@@ -82,16 +102,16 @@ const Signup = () => {
         ) {
           setErrorMessage("Please fill all fields");
           setError(true);
-          return step;
+          return;
         }
       }
 
-      if (index === currentStepIndex + 1) {
-        return { ...step, isActive: true };
-      }
-      return { ...step, isActive: false };
-    });
-    setStepsData(newStepsData);
+      const newStepsData = stepsData.map((step, index) => ({
+        ...step,
+        isActive: index === currentStepIndex + 1,
+      }));
+      setStepsData(newStepsData);
+    }
   };
 
   const handlePrevStep = () => {
@@ -116,9 +136,22 @@ const Signup = () => {
     <>
       {Error && (
         <div role="alert" className="alert alert-error">
-          <button className="alert-close cursor-pointer" onClick={() => setError(false)}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <button
+            className="alert-close cursor-pointer"
+            onClick={() => setError(false)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
           </button>
           <span>{ErrorMessage}</span>
@@ -128,24 +161,49 @@ const Signup = () => {
         <div className="flex items-center justify-center w-full lg:p-12">
           <div className="flex items-center xl:p-10">
             <form className="flex flex-col w-full h-full pb-6 text-center rounded-3xl">
-              <h3 className="mb-3 text-4xl font-extrabold text-base-content">Sign up</h3>
+              <h3 className="mb-3 text-4xl font-extrabold text-base-content">
+                Sign up
+              </h3>
               <p className="mb-4 text-base-content">Create your account</p>
-              <span className="text-sm text-base-content">Already have an account? <a href="login" className="font-bold text-base-content">Sign in</a></span>
+              <span className="text-sm text-base-content">
+                Already have an account?{" "}
+                <a href="login" className="font-bold text-base-content">
+                  Sign in
+                </a>
+              </span>
 
               <StepIndicator stepsData={stepsData} />
 
-              {currentStepIndex === 0 && <PersonalInformationForm data={data} setData={setData} />}
-              {currentStepIndex === 1 && <CompanyDetailsForm data={data} setData={setData} handleChange={handleChange} />}
+              {currentStepIndex === 0 && (
+                <PersonalInformationForm data={data} setData={setData} />
+              )}
+              {currentStepIndex === 1 && (
+                <CompanyDetailsForm
+                  data={data}
+                  setData={setData}
+                  handleChange={handleChange}
+                />
+              )}
               {currentStepIndex === 2 && <ReviewSubmitForm data={data} />}
 
               <div className="flex justify-between space-x-3">
                 {currentStepIndex !== 0 && (
-                  <button type="button" onClick={handlePrevStep} className="flex items-center justify-center w-1/2 px-6 py-3 text-sm font-medium text-white bg-gray-500 rounded-2xl">
+                  <button
+                    type="button"
+                    onClick={handlePrevStep}
+                    className="flex items-center justify-center w-1/2 px-6 py-3 text-sm font-medium text-white bg-gray-500 rounded-2xl"
+                  >
                     Previous
                   </button>
                 )}
-                <button type="button" onClick={handleNextStep} className="flex items-center justify-center w-1/2 px-6 py-3 text-sm font-medium text-white bg-primary rounded-2xl">
-                  {currentStepIndex === stepsData.length - 1 ? "Submit" : "Next"}
+                <button
+                  type="button"
+                  onClick={handleNextStep}
+                  className="flex items-center justify-center w-1/2 px-6 py-3 text-sm font-medium text-white bg-primary rounded-2xl"
+                >
+                  {currentStepIndex === stepsData.length - 1
+                    ? "Submit"
+                    : "Next"}
                 </button>
               </div>
             </form>
