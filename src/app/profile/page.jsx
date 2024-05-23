@@ -249,20 +249,27 @@ const Profile = () => {
        
     };
 
-    const handleDeleteAddress = async (index) => {
-        const response = await fetch(`localhost:3001/Users/delete-address`, {
+    const handleDeleteAddress = async (label) => {
+
+        const data = {"id":label};
+        console.log(data);
+        const response = await fetch(`http://localhost:3001/Users/delete-address`, {
             method: 'delete',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
+                'Authorization': `Bearer ${token}`
             },
-            credentials: 'include',
+            // credentials: 'include',
             body: JSON.stringify(data)
         });
-        setData(prevData => ({
-            ...prevData,
-            address: prevData.address.filter((item, i) => i !== index)
-        }));
+
+        //i want to update setAddressData
+        if (response.ok) {
+            setAddressData(addressData.filter((addr) => addr.label !== label));
+        } else {
+            console.error('Failed to delete');
+        }
+        
     };
 
 
@@ -529,7 +536,7 @@ const Profile = () => {
                                                 <button
                                                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                                     type="button"
-                                                    onClick={() => handleDeleteAddress(index)}
+                                                    onClick={() => handleDeleteAddress(addr.label)}
                                                 >
                                                     Delete
                                                 </button>
