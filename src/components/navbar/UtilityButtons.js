@@ -1,6 +1,18 @@
+import { useState } from 'react';
 import { HeartIcon, ShoppingBagIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function UtilityButtons({ setOpenCart, setOpenWishlist }) {
+    const [searchOpen, setSearchOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+
+    const handleSearchClick = () => {
+        setSearchOpen(!searchOpen);
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+
     return (
         <div className="ml-auto flex items-center">
             <div className="hidden lg:ml-8 lg:flex">
@@ -15,11 +27,23 @@ export default function UtilityButtons({ setOpenCart, setOpenWishlist }) {
                 </a>
             </div>
 
-            <div className="flex lg:ml-6">
-                <a href="#" className="p-2 text-gray-400 hover:text-gray-500">
+            <div className="flex lg:ml-6 items-center relative">
+                <button onClick={handleSearchClick} className="p-2 text-gray-400 hover:text-gray-500">
                     <span className="sr-only">Search</span>
                     <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
-                </a>
+                </button>
+                <div
+                    className={`${searchOpen ? 'w-48 opacity-100' : 'w-0 opacity-0'
+                        } ml-2 transition-all duration-300 ease-in-out overflow-hidden`}
+                >
+                    <input
+                        type="text"
+                        className="p-2 border rounded-md w-full"
+                        placeholder="Search..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                    />
+                </div>
             </div>
 
             {/* Wishlist */}
