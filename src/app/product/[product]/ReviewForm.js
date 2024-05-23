@@ -37,6 +37,7 @@ const ReviewForm = ({ onSubmit }) => {
                         Review
                     </label>
                     <textarea
+                        placeholder='Write your review here...'
                         id="review-text"
                         name="review-text"
                         value={newReview.text}
