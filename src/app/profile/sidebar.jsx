@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 const Sidebar = () => {
     const [isSidebarVisible, setSidebarVisible] = useState(true);
+    const userRole = localStorage.getItem('role');
 
     const toggleSidebar = () => {
         setSidebarVisible(!isSidebarVisible);
@@ -46,7 +47,7 @@ const Sidebar = () => {
                         {/* Orders */}
 
                         <a
-                            href="#orders"
+                            href="/orderHistory"
                             class="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
 
                         >
@@ -68,6 +69,7 @@ const Sidebar = () => {
                             <small className="text-xs font-medium">Orders</small>
                         </a>
                         <hr />
+                        
 
                         {/* Payment Methods  */}
                         <a
@@ -96,6 +98,33 @@ const Sidebar = () => {
                             </svg>
                             <small class="text-xs font-medium">Payment</small>
                         </a>
+                        {/* My Assigned Orders (Only for Admin) */}
+                        {userRole === 'admin' && (
+                            <>
+                                <hr />
+                                <a
+                                    href="/assignedOrdersAdmin"
+                                    className="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
+                                >
+                                    {/* <!-- HeroIcon - Orders --> */}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="1.5"
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M15 19l-7-7 7-7"
+                                        />
+                                    </svg>
+                                    <small className="text-xs font-medium">Assigned Orders</small>
+                                </a>
+                            </>
+                        )}
 
                         {/* Logout Methods  */}
                         <a

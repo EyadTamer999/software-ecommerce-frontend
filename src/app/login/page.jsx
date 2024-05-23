@@ -39,6 +39,7 @@ const Login = () => {
 
         localStorage.setItem('token', token)
         localStorage.setItem('user', JSON.stringify(payload))
+        localStorage.setItem('role', payload.role )
         
         setNotification({ message: 'Login successful!', type: 'success' });
         setTimeout(() => {
