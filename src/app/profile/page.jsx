@@ -21,8 +21,6 @@
 // export default Profile
 
 "use client";
-
-// import Navbar from '../../components/navbar';
 import React, { useState, useEffect } from 'react'
 
 import Sidebar from './sidebar'
@@ -43,7 +41,7 @@ const Profile = () => {
         phone: '',
         role: ''
     })
-    
+
 
     //i want to set address data to the state
     const [address, setAddress] = useState({
@@ -59,7 +57,7 @@ const Profile = () => {
         extra_description: ''
     });
 
-   
+
     const [isaddAddresOpen, setIsaddAddresOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
@@ -214,8 +212,8 @@ const Profile = () => {
             "country": address.country,
             "state": address.state,
             "extra_description": address.extra_description
-          }
-          
+        }
+
 
         // Send the updated data to the backend
         const response = await fetch(`http://localhost:3001/Users/add-address`, {
@@ -248,12 +246,12 @@ const Profile = () => {
             extra_description: ''
         });
         // Update the state with the new data
-       
+
     };
 
     const handleDeleteAddress = async (label) => {
 
-        const data = {"id":label};
+        const data = { "id": label };
         console.log(data);
         const response = await fetch(`http://localhost:3001/Users/delete-address`, {
             method: 'delete',
@@ -271,17 +269,17 @@ const Profile = () => {
         } else {
             console.error('Failed to delete');
         }
-        
+
     };
 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-    
-         setUser(prevUser => ({
+
+        setUser(prevUser => ({
             ...prevUser,
             [name]: value
-    }));
+        }));
     };
 
 
@@ -289,10 +287,10 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const input ={
-            "firstName" : user.firstName,
-            "lastName" : user.lastName,
-            "phone" : user.phone
+        const input = {
+            "firstName": user.firstName,
+            "lastName": user.lastName,
+            "phone": user.phone
         }
         const response = await fetch(`http://localhost:3001/Users/update-profile`, {
             method: 'PUT',
