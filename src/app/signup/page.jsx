@@ -86,6 +86,10 @@ const Signup = () => {
         setErrorMessage("Signup failed due to an unexpected error");
         setError(true);
       }
+    } else if (currentStepIndex === 3) {
+      // Check if on the fourth step
+      // Redirect to login page
+      window.location.href = "/login";
     } else {
       const newStepsData = stepsData.map((step, index) => {
         if (currentStepIndex === 0) {
