@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import ProductList from './product/ProductList'
-import { getAllProducts, getPopularProducts, getTopOffers } from './product/fetchApi';
+import ProductList from './products/ProductList'
+import { getAllProducts, getPopularProducts, getTopOffers } from './products/fetchApi';
 
 export default function Home() {
 
@@ -13,12 +13,12 @@ export default function Home() {
 
     getTopOffers().then((response) => {
       console.log("offers:", response);
-      setOffers(response.data);
+      setOffers(response.data.slice(0, 4));
     })
 
     getPopularProducts().then((response) => {
       console.log("popular:", response);
-      setPopularProducts(response.data);
+      setPopularProducts(response.data.slice(0, 4));
     })
   }, [])
 

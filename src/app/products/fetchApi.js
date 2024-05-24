@@ -39,8 +39,23 @@ export const getTopOffers = async () => {
             },
         }).then((response) => {
             return response.json();
-        }
-        );
+        });
     return response;
 }
 
+
+export const getProductById = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + `/getProduct/${id}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+        return response
+    }
+    catch (e) {
+        console.log(e);
+    }
+}

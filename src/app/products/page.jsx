@@ -11,8 +11,7 @@ const AllProducts = () => {
             console.log(response);
             setProducts(response.data);
         })
-    }
-        , [])
+    }, [])
 
     const [products, setProducts] = useState([])
 
