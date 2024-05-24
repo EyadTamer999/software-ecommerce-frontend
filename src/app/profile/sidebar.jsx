@@ -97,8 +97,10 @@ const Sidebar = () => {
 
                         {/* Payment Methods */}
                         <a
-                            href="#payment"
-                            className="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
+
+                            href="/payment"
+                            class="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
+
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
