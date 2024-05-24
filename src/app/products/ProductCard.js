@@ -37,7 +37,7 @@ export default function ProductCard({ product }) {
                                     {product.name}
                                 </Link>
                             </h3>
-                            <p className="mt-1 text-sm text-gray-500">{product.material}</p>
+                            <p className="mt-1 text-sm text-gray-500">{product.category}</p>
                         </div>
                         <p className="text-sm font-medium text-gray-900">EGP {product.buy_price}</p>
                     </div>

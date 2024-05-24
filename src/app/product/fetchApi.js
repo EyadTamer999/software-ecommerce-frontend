@@ -54,3 +54,23 @@ export const addToCart = async (cartItem) => {
         console.log(e);
     }
 }
+
+
+export const addToWishlist = async (wishlistItem) => {
+    try {
+        console.log(wishlistItem);
+        const response = await fetch(BASE_URL + "/postUserWishProduct",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(wishlistItem)
+            })
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
