@@ -38,7 +38,6 @@ export default function Product() {
   const productId = searchParams.get('id');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
-
   async function fetchProduct() {
     const product = await getProductById(productId);
     console.log(product.data);
@@ -58,17 +57,17 @@ export default function Product() {
     });
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center mt-6">
-        <span className="loading loading-spinner loading-lg"></span>
-      </div>
-    );
-  }
-
   const handleRentSubmit = (duration) => {
     console.log(`Rent duration: ${duration} days`);
   };
+
+  const addToCart = (e) => {
+    e.preventDefault();
+    console.log('Product added to cart');
+
+  };
+
+
 
   if (loading) {
     return (
@@ -256,6 +255,7 @@ export default function Product() {
               </div>
 
               <button
+                onClick={(e) => addToCart(e)}
                 type="button"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
