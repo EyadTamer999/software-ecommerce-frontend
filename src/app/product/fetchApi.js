@@ -1,19 +1,37 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_GATEWAY_URL + "/Product";
+const token = localStorage.getItem('token');
 
-
-export const getAllProducts = async () => {
-    const response = await fetch(BASE_URL + "/getAllProducts",
-        {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).then((response) => {
-            return response.json();
-        }
-        );
-    return response;
+export const getProductById = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/getProduct/" + id,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
 }
 
-
-
+export const addReview = async (review) => {
+    console.log(review);
+    try {
+        const response = await fetch(BASE_URL + "/addReview",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(review)
+            })
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}

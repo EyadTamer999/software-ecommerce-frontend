@@ -8,7 +8,7 @@ const ReviewsList = ({ reviews }) => {
             <h2 className="text-sm font-medium text-gray-900">Customer Reviews</h2>
             <div className="overflow-y-auto h-64 mt-4 space-y-4">
                 {reviews.map((review) => (
-                    <div key={review.id} className="border-t border-gray-200 pt-4">
+                    <div key={review.userId} className="border-t border-gray-200 pt-4">
                         <div className="flex items-center">
                             <div className="flex items-center">
                                 {[0, 1, 2, 3, 4].map((rating) => (
@@ -22,10 +22,13 @@ const ReviewsList = ({ reviews }) => {
                                     />
                                 ))}
                             </div>
-                            <p className="ml-3 text-sm text-gray-700">{review.author}</p>
+                            <p className="ml-3 text-sm text-gray-700">{review.userId}</p>
                         </div>
                         <div className="mt-2 text-sm text-gray-600">
-                            <p>{review.text}</p>
+                            <p>{review.rating}</p>
+                        </div>
+                        <div className="mt-2 text-sm text-gray-500">
+                            <p>{review.createdAt}</p>
                         </div>
                     </div>
                 ))}
@@ -35,3 +38,4 @@ const ReviewsList = ({ reviews }) => {
 }
 
 export default ReviewsList
+
