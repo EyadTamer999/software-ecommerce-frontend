@@ -3,17 +3,25 @@ import { useState } from 'react'
 import { addReview } from './fetchApi'
 
 const ReviewForm = ({ onSubmit, productId }) => {
-    const [newReview, setNewReview] = useState({ productId: '', userId: '', rating: '', review: '', createdAt: '' })
+    const [newReview, setNewReview] = useState({
+        productId: '', review: {
+            rating: '', review: '', createdAt: ''
+        }
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         newReview.productId = productId
-        newReview.createdAt = new Date().toISOString()
-        let user = JSON.parse(localStorage.getItem('user'))
-        newReview.userId = user.user
+        newReview.review.createdAt = new Date().toISOString()
         onSubmit(newReview)
         await addReview(newReview)
-        setNewReview({ productId: '', userId: '', rating: '', review: '', createdAt: '' })
+
+        //empty the form
+        setNewReview({
+            productId: '', review: {
+                rating: '', review: '', createdAt: ''
+            }
+        })
     }
 
     return (
@@ -27,8 +35,8 @@ const ReviewForm = ({ onSubmit, productId }) => {
                     <select
                         id="review-rating"
                         name="review-rating"
-                        value={newReview.rating}
-                        onChange={(e) => setNewReview({ ...newReview, rating: parseInt(e.target.value) })}
+                        value={newReview.review.rating}
+                        onChange={(e) => setNewReview({ ...newReview, review: { ...newReview.review, rating: e.target.value } })}
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         required
                     >
@@ -46,15 +54,15 @@ const ReviewForm = ({ onSubmit, productId }) => {
                         placeholder='Write your review here...'
                         id="review-text"
                         name="review-text"
-                        value={newReview.review}
-                        onChange={(e) => setNewReview({ ...newReview, review: e.target.value })}
+                        value={newReview.review.review}
+                        onChange={(e) => setNewReview({ ...newReview, review: { ...newReview.review, review: e.target.value } })}
                         rows="4"
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         required
                     />
                 </div>
                 <button
-                    type="submit"
+                    onClick={handleSubmit}
                     className="mt-2 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                     Submit Review
