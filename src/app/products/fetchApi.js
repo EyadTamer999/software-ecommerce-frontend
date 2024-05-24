@@ -34,5 +34,14 @@ export const getTopOffers = async () => {
     return response.json();
 }
 
-
+export const getByCategory = async (category) => {
+    const response = await fetch(BASE_URL + "/getCategory/" + category,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+    return response.json();
+}
 

@@ -4,10 +4,11 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
 import ReviewsList from './ReviewsList';
 import ReviewForm from './ReviewForm';
-import { getProductById, addToCart } from './fetchApi';
+import { getProductById, addToCart, addToWishlist } from './fetchApi';
 import { useSearchParams } from "next/navigation";
 import ProductList from '../products/ProductList';
 import RentModal from './RentModal';
+import { getByCategory } from '../products/fetchApi';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -37,6 +38,14 @@ export default function Product() {
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+
+  const fetchRelatedProducts = async () => {
+    const response = await getByCategory(product.category);
+    setProduct({
+      ...product,
+      relatedProducts: response.data,
+    });
+  };
 
   async function fetchProduct() {
     const product = await getProductById(productId);
@@ -72,6 +81,14 @@ export default function Product() {
   useEffect(() => {
     fetchProduct();
   }, [productId, selectedColor, selectedSize]);
+
+
+  useEffect(() => {
+    if (product.category) {
+      fetchRelatedProducts();
+    }
+  }, [product.category]);
+
 
   const handleReviewSubmit = (newReview) => {
     console.log(newReview);
@@ -195,6 +212,7 @@ export default function Product() {
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
+            <h3 className="text-sm font-medium text-gray-900">{product.category}</h3>
           </div>
 
           {/* Options */}
@@ -427,6 +445,7 @@ export default function Product() {
                 </button>
                 <button
                   type="button"
+                  onClick={(e) => addToWishlist({ productId: productId })}
                   className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to Wishlist
@@ -472,7 +491,9 @@ export default function Product() {
             <ReviewForm productId={productId} onSubmit={handleReviewSubmit} />
 
             {/* Related Products */}
-            <ProductList title="Related Products" products={product.relatedProducts} />
+            <div className="space-x-5">
+              <ProductList title="Related Products" products={product.relatedProducts} />
+            </div>
 
           </div>
         </div>
