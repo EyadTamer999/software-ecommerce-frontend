@@ -74,3 +74,17 @@ export const addToWishlist = async (wishlistItem) => {
         console.log(e);
     }
 }
+
+
+export const deleteProduct = async (id) => {
+    console.log(id);
+    const response = await fetch(BASE_URL + "/deleteProduct/" + id,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    return response.json();
+}

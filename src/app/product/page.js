@@ -4,11 +4,12 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
 import ReviewsList from './ReviewsList';
 import ReviewForm from './ReviewForm';
-import { getProductById, addToCart, addToWishlist } from './fetchApi';
+import { getProductById, addToCart, addToWishlist, deleteProduct } from './fetchApi';
 import { useSearchParams } from "next/navigation";
 import ProductList from '../products/ProductList';
 import RentModal from './RentModal';
 import { getByCategory } from '../products/fetchApi';
+const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -457,6 +458,19 @@ export default function Product() {
                   Add to Favorites
                 </button>
               </div>
+
+              {user && user.role === "admin" && (
+                <div className="mt-4">
+                  <button
+                    onClick={(e) => { deleteProduct(productId); window.location.href = "/products" }}
+                    type="button"
+                    className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+
             </form>
           </div>
 
@@ -497,14 +511,15 @@ export default function Product() {
 
           </div>
         </div>
-      </div>
+      </div >
       {/* Rent Modal */}
-      <RentModal
+      < RentModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => setIsModalOpen(false)
+        }
         rentPrice={product.rent_price}
         onSubmit={handleRentSubmit}
       />
-    </div>
+    </div >
   );
 }

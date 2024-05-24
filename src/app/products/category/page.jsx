@@ -24,9 +24,7 @@ export default function category() {
 
 
     return (
-
         <ProductList title={category} products={products} />
-
     )
 }
 
