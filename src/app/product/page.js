@@ -4,7 +4,7 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
 import ReviewsList from './ReviewsList';
 import ReviewForm from './ReviewForm';
-import { getProductById, addToCart, addToWishlist, deleteProduct } from './fetchApi';
+import { getProductById, addToCart, addToWishlist, deleteProduct, addToFavorites } from './fetchApi';
 import { useSearchParams } from "next/navigation";
 import ProductList from '../products/ProductList';
 import RentModal from './RentModal';
@@ -452,6 +452,7 @@ export default function Product() {
                   Add to Wishlist
                 </button>
                 <button
+                  onClick={(e) => addToFavorites({ productId: productId })}
                   type="button"
                   className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >

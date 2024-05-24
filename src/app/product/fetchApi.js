@@ -88,3 +88,23 @@ export const deleteProduct = async (id) => {
         })
     return response.json();
 }
+
+export const addToFavorites = async (id) => {
+    const token = localStorage.getItem('token');
+    console.log(id);
+    try {
+        const response = await fetch(BASE_URL + "/postUserFavoriteProduct/",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(id)
+            })
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
