@@ -36,3 +36,40 @@ export const removeWishlist = async (id) => {
         console.log(e);
     }
 }
+
+
+export const getCart = async () => {
+    try {
+        const response = await fetch(BASE_URL + "/getCart",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+export const removeCart = async (id) => {
+    try {
+        const response = await fetch(BASE_URL + "/deleteFromCart/" + id,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+
+            })
+        console.log(response);
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}

@@ -44,4 +44,3 @@ export const getByCategory = async (category) => {
         })
     return response.json();
 }
-
