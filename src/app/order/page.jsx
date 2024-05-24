@@ -1,56 +1,82 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 
-const products = [
-    {
-        id: 1,
-        name: 'Throwback Hip Bag',
-        href: '#',
-        color: 'Salmon',
-        price: '$90.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-        imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-    },
-    {
-        id: 2,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    },
-    {
-        id: 3,
-        name: 'Medium Stuff Satchel',
-        href: '#',
-        color: 'Blue',
-        price: '$32.00',
-        quantity: 1,
-        imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-        imageAlt:
-            'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-    },
-    // More products...
-];
+const BASE_URL = process.env.NEXT_PUBLIC_API_GATEWAY_URL + "/Product";
+const token = localStorage.getItem('token');
 
 const Order = () => {
+    const [cart, setCart] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Fetch the cart details
+    useEffect(() => {
+        const fetchCart = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/getCart`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                });
+                const cartData = await response.json();
+                console.log("cartData---->" , cartData)
+                // Fetch product images
+                const cartWithImages = await Promise.all(cartData.map(async (item) => {
+                    const product = await getProductById(item.id);
+                    return { ...item, imageSrc: product.images, imageAlt: item.name };
+                }));
+
+                 setCart(cartWithImages);
+            } catch (e) {
+                setError(e);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        // fetchCart();
+    }, []);
+
+    const getProductById = async (id) => {
+        try {
+            const response = await fetch(`${BASE_URL}/getProduct/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log("product---->" , response.json())
+            return response.json();
+        } catch (e) {
+            console.log(e);
+        }
+    };
+  
+
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
+
+    if (error) {
+        return <div>Error: {error.message}</div>;
+    }
+
     return (
         <div className="flex flex-col lg:flex-row">
             <div className="lg:w-1/2 p-8">
                 <div className="mt-8 w-full">
                     <div className="flow-root">
                         <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {products.map((product) => (
+                            {cart.map((product) => (
                                 <li key={product.id} className="flex py-6">
                                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                        <img
+                                        {/* <img
                                             src={product.imageSrc}
                                             alt={product.imageAlt}
                                             className="h-full w-full object-cover object-center"
-                                        />
+                                        /> */}
                                     </div>
 
                                     <div className="ml-4 flex flex-1 flex-col">
@@ -65,19 +91,13 @@ const Order = () => {
                                         </div>
                                         <div className="flex flex-1 items-end justify-between text-sm">
                                             <p className="text-gray-500">Qty {product.quantity}</p>
-
-                                            
                                         </div>
                                     </div>
                                 </li>
                             ))}
                         </ul>
-                        
                     </div>
-                    
                 </div>
-
-                
                 <div className='card shadow-2xl px-10 py-1 sm:px-3 m-10 justify-center'>
                     <div className="justify-between mt-2 flex items-center">
                         <input
@@ -91,27 +111,20 @@ const Order = () => {
                             Apply Promo Code
                         </button>
                     </div>
-
                     <div className="flex justify-between text-base font-medium text-gray-900 px-2 py-1 sm:px-3 mt-2">
                         <p>Tax:</p>
                         <p>$262.00</p>
                     </div>
-
                     <div className="flex justify-between text-base font-medium text-gray-900 px-2 py-1 sm:px-3">
                         <p>Products Price:</p>
                         <p>$262.00</p>
                     </div>
-
                     <div className="flex justify-between text-base font-medium text-gray-900 px-2 py-1 sm:px-3">
                         <p>Total:</p>
                         <p>$262.00</p>
                     </div>
-
-                    <button class="btn btn-block px-3 py-2 rounded-md mt-4 border-0">Go To Payment Method</button>
+                    <button className="btn btn-block px-3 py-2 rounded-md mt-4 border-0">Go To Payment Method</button>
                 </div>
-
-                
-                
             </div>
             <div className="lg:w-1/2 p-2">
                 <div className="hero bg-base-400" style={{ height: 'calc(100% - 1rem)' }}>
@@ -183,9 +196,7 @@ const Order = () => {
                     </div>
                 </div>
             </div>
-            
         </div>
-        
     );
 }
 
