@@ -22,7 +22,7 @@ const ReviewsList = ({ reviews }) => {
                                     />
                                 ))}
                             </div>
-                            <p className="ml-3 text-sm text-gray-700">{review.author}</p>
+                            <p className="ml-3 text-sm text-gray-700">{review.userId}</p>
                         </div>
                         <div className="mt-2 text-sm text-gray-600">
                             <p>{review.rating}</p>

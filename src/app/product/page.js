@@ -4,50 +4,10 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
 import ReviewsList from './ReviewsList';
 import ReviewForm from './ReviewForm';
-import { getProductById } from '../products/fetchApi';
+import { getProductById } from './fetchApi';
 import { useSearchParams } from "next/navigation";
 import ProductList from '../products/ProductList';
 import RentModal from './RentModal';
-
-// Example usage with initial reviews
-const initialReviews = [
-  {
-    userId: 1,
-    author: "John Doe",
-    rating: 5,
-    text: "Great quality pallets, very sturdy and durable.",
-    createdAt: "2021-09-01T12:00:00Z",
-  },
-  {
-    userId: 2,
-    author: "Jane Smith",
-    rating: 4,
-    text: "Good value for money. Will purchase again.",
-    createdAt: "2021-10-15T08:30:00Z",
-  },
-  {
-    userId: 3,
-    author: "Alice Johnson",
-    rating: 3,
-    text: "Average product. Some pallets were slightly damaged.",
-    createdAt: "2021-11-20T14:45:00Z",
-  },
-  {
-    userId: 4,
-    author: "Bob Brown",
-    rating: 2,
-    text: "Not satisfied with the quality. Too flimsy.",
-    createdAt: "2021-12-05T16:20:00Z",
-  },
-  {
-    userId: 5,
-    author: "Charlie Davis",
-    rating: 1,
-    text: "Poor quality. Would not recommend.",
-    createdAt: "2022-01-10T10:00:00Z",
-  },
-];
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -57,8 +17,8 @@ export default function Product() {
   const [product, setProduct] = useState({
     name: '',
     images: [],
-    colors: [],
-    sizes: [],
+    color: '',
+    size: '',
     relatedProducts: [],
     description: '',
     highlights: [],
@@ -74,7 +34,6 @@ export default function Product() {
   const [loading, setLoading] = useState(true);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [reviews, setReviews] = useState(initialReviews);
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
@@ -92,7 +51,11 @@ export default function Product() {
   }, [productId]);
 
   const handleReviewSubmit = (newReview) => {
-    setReviews([...reviews, { ...newReview, id: reviews.length + 1 }]);
+    console.log(newReview);
+    setProduct({
+      ...product,
+      reviews: [...product.reviews, newReview],
+    });
   };
 
   if (loading) {
@@ -151,7 +114,7 @@ export default function Product() {
                   className="h-full w-full object-cover object-center"
                 />
               </div>
-              {product.images.slice(1, 3).map((image, index) => (
+              {product.images.slice(1, 1).map((image, index) => (
                 <div key={index} className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                   <img
                     src={image}
@@ -208,7 +171,7 @@ export default function Product() {
                 </div>
                 <p className="sr-only">{product.rating} out of 5 stars</p>
                 <a href="#" className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  {reviews.length} reviews
+                  {product.reviews.length} reviews
                 </a>
               </div>
             </div>
@@ -348,10 +311,10 @@ export default function Product() {
             </div>
 
             {/* Reviews Section */}
-            <ReviewsList reviews={reviews} />
+            <ReviewsList reviews={product.reviews} />
 
             {/* Review Form */}
-            <ReviewForm onSubmit={handleReviewSubmit} />
+            <ReviewForm productId={productId} onSubmit={handleReviewSubmit} />
 
             {/* Related Products */}
             <ProductList title="Related Products" products={product.relatedProducts} />
