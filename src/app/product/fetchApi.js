@@ -35,3 +35,22 @@ export const addReview = async (review) => {
         console.log(e);
     }
 }
+
+export const addToCart = async (cartItem) => {
+    try {
+        console.log(cartItem);
+        const response = await fetch(BASE_URL + "/addToCart",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(cartItem)
+            })
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
