@@ -1,10 +1,22 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { cartProducts } from './constants'
-
+import { Fragment, useState, useEffect } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { getCart, removeCart } from './fetchApi'; // Ensure you have a removeCartItem function
 
 export default function Cart({ open, setOpen }) {
+    const [cartProducts, setCartProducts] = useState([]);
+
+    const fetchCart = async () => {
+        const response = await getCart();
+        setCartProducts(response.cart);
+        console.log(response.cart);
+    };
+
+    useEffect(() => {
+        if (open) {
+            fetchCart();
+        }
+    }, [open]);
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -37,7 +49,7 @@ export default function Cart({ open, setOpen }) {
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                         <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                                             <div className="flex items-start justify-between">
-                                                <Dialog.Title className="text-lg font-medium text-gray-900">Shopping cart</Dialog.Title>
+                                                <Dialog.Title className="text-lg font-medium text-gray-900">Shopping Cart</Dialog.Title>
                                                 <div className="ml-3 flex h-7 items-center">
                                                     <button
                                                         type="button"
@@ -55,22 +67,14 @@ export default function Cart({ open, setOpen }) {
                                                 <div className="flow-root">
                                                     <ul role="list" className="-my-6 divide-y divide-gray-200">
                                                         {cartProducts.map((product) => (
-                                                            <li key={product.id} className="flex py-6">
-                                                                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                                    <img
-                                                                        src={product.imageSrc}
-                                                                        alt={product.imageAlt}
-                                                                        className="h-full w-full object-cover object-center"
-                                                                    />
-                                                                </div>
-
+                                                            <li key={product._id} className="flex py-6">
                                                                 <div className="ml-4 flex flex-1 flex-col">
                                                                     <div>
                                                                         <div className="flex justify-between text-base font-medium text-gray-900">
                                                                             <h3>
-                                                                                <a href={product.href}>{product.name}</a>
+                                                                                <a href={`/product/${product._id}`}>{product.name}</a>
                                                                             </h3>
-                                                                            <p className="ml-4">{product.price}</p>
+                                                                            <p className="ml-4">EGP {product.price}</p>
                                                                         </div>
                                                                         <p className="mt-1 text-sm text-gray-500">{product.color}</p>
                                                                     </div>
@@ -79,6 +83,11 @@ export default function Cart({ open, setOpen }) {
 
                                                                         <div className="flex">
                                                                             <button
+                                                                                onClick={(e) => {
+                                                                                    e.preventDefault();
+                                                                                    removeCart(product._id);
+                                                                                    setCartProducts(cartProducts.filter((item) => item._id !== product._id));
+                                                                                }}
                                                                                 type="button"
                                                                                 className="font-medium text-indigo-600 hover:text-indigo-500"
                                                                             >
@@ -97,13 +106,8 @@ export default function Cart({ open, setOpen }) {
                                         <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                                             <div className="flex justify-between text-base font-medium text-gray-900">
                                                 <p>Subtotal</p>
-                                                {/* calculate total price */}
-                                                <p>EGP&nbsp;
-                                                    {
-                                                        cartProducts.reduce((acc, product) => {
-                                                            return acc + parseFloat(product.price.replace('$', '')) * product.quantity
-                                                        }, 0)
-                                                    }
+                                                <p>
+                                                    EGP {cartProducts.reduce((acc, product) => acc + product.price * product.quantity, 0).toFixed(2)}
                                                 </p>
                                             </div>
                                             <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
@@ -137,5 +141,5 @@ export default function Cart({ open, setOpen }) {
                 </div>
             </Dialog>
         </Transition.Root>
-    )
+    );
 }
