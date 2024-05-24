@@ -2,61 +2,95 @@
 import { useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { RadioGroup } from '@headlessui/react'
-
+import ReviewsList from './ReviewsList'
+import ReviewForm from './ReviewForm'
 
 const product = {
-  name: 'Basic Tee 6-Pack',
-  price: '$192',
+  name: 'Standard Wooden Pallet',
+  price: '$25',
   href: '#',
   breadcrumbs: [
-    { id: 1, name: 'Men', href: '#' },
-    { id: 2, name: 'Clothing', href: '#' },
+    { id: 1, name: 'Home', href: '/' },
+    { id: 2, name: 'Products', href: '/product' },
   ],
   images: [
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg',
-      alt: 'Two each of gray, white, and black shirts laying flat.',
+      src: 'https://example.com/images/wooden-pallet-01.jpg',
+      alt: 'Standard wooden pallet.',
     },
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg',
-      alt: 'Model wearing plain black basic tee.',
+      src: 'https://example.com/images/wooden-pallet-02.jpg',
+      alt: 'Stacked wooden pallets in a warehouse.',
     },
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg',
-      alt: 'Model wearing plain gray basic tee.',
+      src: 'https://example.com/images/wooden-pallet-03.jpg',
+      alt: 'Close-up of a wooden pallet.',
     },
     {
-      src: 'https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg',
-      alt: 'Model wearing plain white basic tee.',
+      src: 'https://example.com/images/wooden-pallet-04.jpg',
+      alt: 'Wooden pallet being used for shipping.',
     },
   ],
   colors: [
-    { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-    { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
+    { name: 'Natural', class: 'bg-wood', selectedClass: 'ring-brown-400' },
+    { name: 'Brown', class: 'bg-brown-700', selectedClass: 'ring-brown-700' },
   ],
   sizes: [
-    { name: 'XXS', inStock: false },
-    { name: 'XS', inStock: true },
-    { name: 'S', inStock: true },
-    { name: 'M', inStock: true },
-    { name: 'L', inStock: true },
-    { name: 'XL', inStock: true },
-    { name: '2XL', inStock: true },
-    { name: '3XL', inStock: true },
+    { name: '48x40', inStock: true },
+    { name: '42x42', inStock: true },
+    { name: '48x48', inStock: true },
+    { name: 'Custom', inStock: true },
   ],
   description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
+    'Our Standard Wooden Pallet is perfect for shipping and storage needs. Built with high-quality materials, it ensures durability and strength for various applications.',
   highlights: [
-    'Hand cut and sewn locally',
-    'Dyed with our proprietary colors',
-    'Pre-washed & pre-shrunk',
-    'Ultra-soft 100% cotton',
+    'Made from high-quality wood',
+    'Durable and reusable',
+    'Supports heavy loads',
+    'Custom sizes available',
   ],
   details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
+    'Our wooden pallets are treated to meet international shipping standards. Available in standard and custom sizes to fit your specific needs.',
 }
-const reviews = { href: '#', average: 4, totalCount: 117 }
+
+const initialReviews = [
+  {
+    id: 1,
+    rating: 5,
+    text: "Great quality pallets, very sturdy and durable.",
+    author: "John Doe",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+  {
+    id: 2,
+    rating: 4,
+    text: "Good value for money. Will buy again.",
+    author: "Jane Smith",
+  },
+]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -64,7 +98,12 @@ function classNames(...classes) {
 
 export default function Product() {
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2])
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0])
+  const [reviews, setReviews] = useState(initialReviews)
+
+  const handleReviewSubmit = (newReview) => {
+    setReviews([...reviews, { ...newReview, id: reviews.length + 1 }])
+  }
 
   return (
     <div className="bg-white">
@@ -152,16 +191,16 @@ export default function Product() {
                     <StarIcon
                       key={rating}
                       className={classNames(
-                        reviews.average > rating ? 'text-gray-900' : 'text-gray-200',
+                        product.rating > rating ? 'text-gray-900' : 'text-gray-200',
                         'h-5 w-5 flex-shrink-0'
                       )}
                       aria-hidden="true"
                     />
                   ))}
                 </div>
-                <p className="sr-only">{reviews.average} out of 5 stars</p>
+                <p className="sr-only">{product.rating} out of 5 stars</p>
                 <a href={reviews.href} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                  {reviews.totalCount} reviews
+                  {product.totalCount} reviews
                 </a>
               </div>
             </div>
@@ -269,7 +308,7 @@ export default function Product() {
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Add to bag
+                Add to cart
               </button>
             </form>
           </div>
@@ -305,6 +344,12 @@ export default function Product() {
                 <p className="text-sm text-gray-600">{product.details}</p>
               </div>
             </div>
+
+            {/* Reviews Section */}
+            <ReviewsList reviews={reviews} />
+
+            {/* Review Form */}
+            <ReviewForm onSubmit={handleReviewSubmit} />
           </div>
         </div>
       </div>

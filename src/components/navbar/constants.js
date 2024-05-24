@@ -153,8 +153,8 @@ export const navigation = {
         },
     ],
     pages: [
-        { name: "New Pallets", href: "#" },
-        { name: "Trending 🔥", href: "#" },
+        { name: "New Pallets", href: "#new" },
+        { name: "Trending 🔥", href: "#trending" },
     ],
 };
 
