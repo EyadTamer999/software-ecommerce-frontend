@@ -32,8 +32,8 @@ export default function Product() {
     totalCount: 0,
   });
   const [loading, setLoading] = useState(true);
-  const [selectedColor, setSelectedColor] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState("red");
+  const [selectedSize, setSelectedSize] = useState("Small");
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
@@ -41,13 +41,32 @@ export default function Product() {
   async function fetchProduct() {
     const product = await getProductById(productId);
     console.log(product.data);
+    if (product.data) {
+      // Check if selected color is not red, add 10 EGP to both prices
+      if (selectedColor !== "red") {
+        product.data.buy_price = parseFloat(product.data.buy_price) + 10;
+        product.data.rent_price = parseFloat(product.data.rent_price) + 10;
+      }
+
+      if (selectedSize == "Medium") {
+        product.data.buy_price = parseFloat(product.data.buy_price) + 20;
+        product.data.rent_price = parseFloat(product.data.rent_price) + 20;
+      }
+
+      if (selectedSize == "Large") {
+        product.data.buy_price = parseFloat(product.data.buy_price) + 30;
+        product.data.rent_price = parseFloat(product.data.rent_price) + 30;
+      }
+
+
+    }
     setProduct(product.data);
     setLoading(false);
   }
 
   useEffect(() => {
     fetchProduct();
-  }, [productId]);
+  }, [productId, selectedColor]);
 
   const handleReviewSubmit = (newReview) => {
     console.log(newReview);
@@ -185,6 +204,7 @@ export default function Product() {
                 <div className="flex items-center">
                   {[0, 1, 2, 3, 4].map((rating) => (
                     <StarIcon
+                      key={rating}
                       className={classNames(
                         product.rating > rating ? 'text-gray-900' : 'text-gray-200',
                         'h-5 w-5 flex-shrink-0'
@@ -211,6 +231,7 @@ export default function Product() {
 
                     {/* 3 Colors: Red, Green, Blue */}
 
+                    {/* default color red */}
                     <RadioGroup.Option
                       value={"red"}
                       className={({ active, checked }) =>
@@ -233,6 +254,7 @@ export default function Product() {
                         )}
                       />
                     </RadioGroup.Option>
+
 
                     <RadioGroup.Option
                       value={"green"}
