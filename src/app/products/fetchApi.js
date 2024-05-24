@@ -8,11 +8,8 @@ export const getAllProducts = async () => {
             headers: {
                 "Content-Type": "application/json",
             },
-        }).then((response) => {
-            return response.json();
-        }
-        );
-    return response;
+        })
+    return response.json();
 }
 
 export const getPopularProducts = async () => {
@@ -22,12 +19,8 @@ export const getPopularProducts = async () => {
             headers: {
                 "Content-Type": "application/json",
             },
-        }).then((response) => {
-            console.log(response);
-            return response.json();
-        }
-        );
-    return response;
+        })
+    return response.json();
 }
 
 export const getTopOffers = async () => {
@@ -37,23 +30,21 @@ export const getTopOffers = async () => {
             headers: {
                 "Content-Type": "application/json",
             },
-        }).then((response) => {
-            return response.json();
-        });
-    return response;
+        })
+    return response.json();
 }
 
 
 export const getProductById = async (id) => {
     try {
-        const response = await fetch(BASE_URL + `/getProduct/${id}`,
+        const response = await fetch(BASE_URL + "/getProduct/" + id,
             {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                 },
             })
-        return response
+        return response.json();
     }
     catch (e) {
         console.log(e);

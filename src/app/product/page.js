@@ -6,21 +6,48 @@ import ReviewsList from './ReviewsList';
 import ReviewForm from './ReviewForm';
 import { getProductById } from '../products/fetchApi';
 import { useSearchParams } from "next/navigation";
+import ProductList from '../products/ProductList';
+import RentModal from './RentModal';
 
+// Example usage with initial reviews
 const initialReviews = [
   {
-    id: 1,
+    userId: 1,
+    author: "John Doe",
     rating: 5,
     text: "Great quality pallets, very sturdy and durable.",
-    author: "John Doe",
+    createdAt: "2021-09-01T12:00:00Z",
   },
   {
-    id: 2,
-    rating: 4,
-    text: "Good value for money. Will buy again.",
+    userId: 2,
     author: "Jane Smith",
+    rating: 4,
+    text: "Good value for money. Will purchase again.",
+    createdAt: "2021-10-15T08:30:00Z",
+  },
+  {
+    userId: 3,
+    author: "Alice Johnson",
+    rating: 3,
+    text: "Average product. Some pallets were slightly damaged.",
+    createdAt: "2021-11-20T14:45:00Z",
+  },
+  {
+    userId: 4,
+    author: "Bob Brown",
+    rating: 2,
+    text: "Not satisfied with the quality. Too flimsy.",
+    createdAt: "2021-12-05T16:20:00Z",
+  },
+  {
+    userId: 5,
+    author: "Charlie Davis",
+    rating: 1,
+    text: "Poor quality. Would not recommend.",
+    createdAt: "2022-01-10T10:00:00Z",
   },
 ];
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -29,17 +56,17 @@ function classNames(...classes) {
 export default function Product() {
   const [product, setProduct] = useState({
     name: '',
-    price: '',
-    href: '',
-    breadcrumbs: [],
     images: [],
     colors: [],
     sizes: [],
+    relatedProducts: [],
     description: '',
     highlights: [],
     details: '',
     specifications: [],
     buy_price: '',
+    rent_price: '',
+    rent_duration: '',
     rating: 0,
     reviews: [],
     totalCount: 0,
@@ -50,26 +77,34 @@ export default function Product() {
   const [reviews, setReviews] = useState(initialReviews);
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+
+
+  async function fetchProduct() {
+    const product = await getProductById(productId);
+    console.log(product.data);
+    setProduct(product.data);
+    setLoading(false);
+  }
 
   useEffect(() => {
-    console.log('productId:', productId);
-    if (productId) {
-      getProductById(productId)
-        .then((response) => {
-          setProduct(response);
-          setSelectedColor(response.color);
-          setSelectedSize(response.size);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching product:', error);
-          setLoading(false);
-        });
-    }
+    fetchProduct();
   }, [productId]);
 
   const handleReviewSubmit = (newReview) => {
     setReviews([...reviews, { ...newReview, id: reviews.length + 1 }]);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center mt-6">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+  const handleRentSubmit = (duration) => {
+    console.log(`Rent duration: ${duration} days`);
   };
 
   if (loading) {
@@ -153,7 +188,7 @@ export default function Product() {
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">${product.buy_price}</p>
+            <p className="text-3xl tracking-tight text-gray-900">EGP {product.buy_price}</p>
 
             {/* Reviews */}
             <div className="mt-6">
@@ -258,7 +293,7 @@ export default function Product() {
               </div>
 
               <button
-                type="submit"
+                type="button"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Add to cart
@@ -268,6 +303,7 @@ export default function Product() {
                 <button
                   type="button"
                   className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  onClick={() => setIsModalOpen(true)}
                 >
                   Rent
                 </button>
@@ -316,9 +352,20 @@ export default function Product() {
 
             {/* Review Form */}
             <ReviewForm onSubmit={handleReviewSubmit} />
+
+            {/* Related Products */}
+            <ProductList title="Related Products" products={product.relatedProducts} />
+
           </div>
         </div>
       </div>
+      {/* Rent Modal */}
+      <RentModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        rentPrice={product.rent_price}
+        onSubmit={handleRentSubmit}
+      />
     </div>
   );
 }
