@@ -8,6 +8,7 @@ import { getProductById, addToCart, addToWishlist } from './fetchApi';
 import { useSearchParams } from "next/navigation";
 import ProductList from '../products/ProductList';
 import RentModal from './RentModal';
+import { getByCategory } from '../products/fetchApi';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -37,6 +38,14 @@ export default function Product() {
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+
+  const fetchRelatedProducts = async () => {
+    const response = await getByCategory(product.category);
+    setProduct({
+      ...product,
+      relatedProducts: response.data,
+    });
+  };
 
   async function fetchProduct() {
     const product = await getProductById(productId);
@@ -72,6 +81,14 @@ export default function Product() {
   useEffect(() => {
     fetchProduct();
   }, [productId, selectedColor, selectedSize]);
+
+
+  useEffect(() => {
+    if (product.category) {
+      fetchRelatedProducts();
+    }
+  }, [product.category]);
+
 
   const handleReviewSubmit = (newReview) => {
     console.log(newReview);
@@ -474,7 +491,9 @@ export default function Product() {
             <ReviewForm productId={productId} onSubmit={handleReviewSubmit} />
 
             {/* Related Products */}
-            <ProductList title="Related Products" products={product.relatedProducts} />
+            <div className="space-x-5">
+              <ProductList title="Related Products" products={product.relatedProducts} />
+            </div>
 
           </div>
         </div>

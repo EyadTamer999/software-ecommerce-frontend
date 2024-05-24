@@ -1,59 +1,35 @@
+import plastsicPallet from '../../../public/plastic-pallets.jpg';
+import woodenPallet from '../../../public/wooden-pallets.jpg';
+import rubberPallet from '../../../public/rubber-pallets.jpg';
 export const navigation = {
     categories: [
         {
-            id: "wooden-pallets",
-            name: "Wooden Pallets",
+            id: "Pallet Categories",
+            name: "Pallet Categories",
             featured: [
                 {
-                    name: "Standard Wooden Pallets",
-                    href: "#",
-                    imageSrc: "https://example.com/images/wooden-pallets-01.jpg",
+                    name: "Wooden Pallets",
+                    href: "/products/category?category=Wood",
+                    imageSrc: woodenPallet,
                     imageAlt: "Standard wooden pallets stacked in a warehouse.",
                 },
                 {
-                    name: "Custom Wooden Pallets",
-                    href: "#",
-                    imageSrc: "https://example.com/images/wooden-pallets-02.jpg",
-                    imageAlt: "Custom wooden pallets for specialized uses.",
-                },
-            ],
-            sections: [
-                {
-                    id: "types",
-                    name: "Types",
-                    items: [
-                        { name: "Standard", href: "#" },
-                        { name: "Custom", href: "#" },
-                        { name: "Heat-Treated", href: "#" },
-                        { name: "Euro Pallets", href: "#" },
-                        { name: "Block Pallets", href: "#" },
-                    ],
+                    name: "Rubber Pallets",
+                    href: "/products/category?category=Rubber",
+                    imageSrc: rubberPallet,
+                    imageAlt: "Rubber pallets for heavy-duty applications.",
                 },
                 {
-                    id: "sizes",
-                    name: "Sizes",
-                    items: [
-                        { name: "48x40", href: "#" },
-                        { name: "42x42", href: "#" },
-                        { name: "48x48", href: "#" },
-                        { name: "Custom Sizes", href: "#" },
-                    ],
-                },
-                {
-                    id: "brands",
-                    name: "Brands",
-                    items: [
-                        { name: "EcoPallet", href: "#" },
-                        { name: "GreenPallet", href: "#" },
-                        { name: "StrongPallet", href: "#" },
-                        { name: "DurablePallet", href: "#" },
-                    ],
+                    name: "Plastic Pallets",
+                    href: "/products/category?category=Plastic",
+                    imageSrc: plastsicPallet,
+                    imageAlt: "Plastic pallets for heavy-duty applications.",
                 },
             ],
         },
     ],
     pages: [
-        { name: "All products", href: "/products" },
+        { name: "All Products", href: "/products" },
         { name: "On Sale 💯", href: "#OnSale" },
         { name: "Trending 🔥", href: "#trending" },
     ],
