@@ -42,23 +42,28 @@ export default function Product() {
     const product = await getProductById(productId);
     console.log(product.data);
     if (product.data) {
+      let buy_price = parseFloat(product.data.buy_price);
+      let rent_price = parseFloat(product.data.rent_price);
+
       // Check if selected color is not red, add 10 EGP to both prices
       if (selectedColor !== "red") {
-        product.data.buy_price = parseFloat(product.data.buy_price) + 10;
-        product.data.rent_price = parseFloat(product.data.rent_price) + 10;
+        buy_price += 10;
+        rent_price += 10;
       }
 
-      if (selectedSize == "Medium") {
-        product.data.buy_price = parseFloat(product.data.buy_price) + 20;
-        product.data.rent_price = parseFloat(product.data.rent_price) + 20;
+      // Check if selected size is not Small, add 10 EGP to both prices
+      if (selectedSize === "Medium") {
+        buy_price += 10;
+        rent_price += 10;
       }
 
-      if (selectedSize == "Large") {
-        product.data.buy_price = parseFloat(product.data.buy_price) + 30;
-        product.data.rent_price = parseFloat(product.data.rent_price) + 30;
+      if (selectedSize === "Large") {
+        buy_price += 20;
+        rent_price += 20;
       }
 
-
+      product.data.buy_price = buy_price;
+      product.data.rent_price = rent_price;
     }
     setProduct(product.data);
     setLoading(false);
@@ -66,7 +71,7 @@ export default function Product() {
 
   useEffect(() => {
     fetchProduct();
-  }, [productId, selectedColor]);
+  }, [productId, selectedColor, selectedSize]);
 
   const handleReviewSubmit = (newReview) => {
     console.log(newReview);
