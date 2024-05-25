@@ -42,7 +42,6 @@ export default function ProductCard({ product }) {
                         <p className="text-sm font-medium text-gray-900">EGP {product.buy_price}</p>
                     </div>
                     <div className="mt-2 flex space-x-2 w-full">
-                        {/* TODO add button fuctionality */}
                         <button
                             type="button"
                             className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
