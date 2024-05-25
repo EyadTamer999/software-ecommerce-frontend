@@ -30,8 +30,8 @@ export const navigation = {
     ],
     pages: [
         { name: "All Products", href: "/products" },
-        { name: "On Sale 💯", href: "#OnSale" },
-        { name: "Trending 🔥", href: "#trending" },
+        { name: "On Sale 💯", href: "/#OnSale" },
+        { name: "Trending 🔥", href: "/#trending" },
     ],
 };
 

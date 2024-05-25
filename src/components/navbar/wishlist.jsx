@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { getWishlist, removeWishlist } from './fetchApi';
+import { addToCart } from '../../app/product/fetchApi';
 
 export default function Wishlist({ open, setOpen }) {
 
@@ -11,6 +12,15 @@ export default function Wishlist({ open, setOpen }) {
         const response = await getWishlist();
         setWishlistProducts(response.data);
         console.log(response.data);
+    };
+
+    const handleAddToCart = async (product) => {
+        const cartItem = {
+            product_id: product._id,
+            quantity: 1,
+        };
+        const response = await addToCart(cartItem);
+        console.log(response);
     };
 
     useEffect(() => {
@@ -86,15 +96,25 @@ export default function Wishlist({ open, setOpen }) {
                                                                             <p className="ml-4">{product.buy_price}</p>
                                                                         </div>
                                                                         <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                                                                        <p className="mt-1 text-sm text-gray-500">{product.size}</p>
                                                                     </div>
                                                                     <div className="flex flex-1 items-end justify-between text-sm">
+                                                                        <div className="flex">
+                                                                            <button
+                                                                                onClick={(e) => { handleAddToCart(product); }}
+                                                                                type="button"
+                                                                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                            >
+                                                                                Add to Cart
+                                                                            </button>
+                                                                        </div>
                                                                         <div className="flex">
                                                                             <button
                                                                                 onClick={(e) => { removeWishlist(product._id); setWishlistProducts(wishlistProducts.filter((item) => item._id !== product._id)); }}
                                                                                 type="button"
                                                                                 className="font-medium text-indigo-600 hover:text-indigo-500"
                                                                             >
-                                                                                Remove
+                                                                                Remove from Wishlist
                                                                             </button>
                                                                         </div>
                                                                     </div>
