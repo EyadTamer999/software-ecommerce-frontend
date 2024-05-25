@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 
-export default function ProductList({ title, products }) {
+export default function ProductList({ title, products, isSaleList }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function ProductList({ title, products }) {
             ) : (
                 <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                     {products.map((product) => (
-                        <ProductCard key={product._id} product={product} />
+                        <ProductCard key={product._id} product={product} isSaleList={isSaleList} />
                     ))}
                 </div>
             )}
