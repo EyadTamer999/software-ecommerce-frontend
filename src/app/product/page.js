@@ -99,8 +99,49 @@ export default function Product() {
     });
   };
 
-  const handleRentSubmit = (duration) => {
-    console.log(`Rent duration: ${duration} days`);
+  const handleRentSubmit = (duration, totalPrice) => {
+    console.log(duration);
+    setProduct({
+      ...product,
+      rent_duration: duration,
+    });
+
+    const cartItem = {
+      id: productId,
+      name: product.name,
+      rent: true,
+      rent_duration: duration,
+      quantity: 1,
+      size: selectedSize,
+      color: selectedColor,
+      material: product.material,
+      price: totalPrice,
+    };
+
+    console.log("cartitem", cartItem);
+
+    // save item to cart localstorage
+    let cart = localStorage.getItem('cart');
+    if (!cart) {
+      cart = [];
+    } else {
+      cart = JSON.parse(cart);
+    }
+
+    // if item already exists in cart, increase quantity
+    const existingItem = cart.find((item) => item.id === productId);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push(cartItem);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    if (localStorage.getItem('token') !== null) {
+      // add to cart API
+      addToCart(cartItem);
+    }
   };
 
   const handleAddToCart = (e) => {
@@ -157,7 +198,7 @@ export default function Product() {
               </svg>
             </li>
             <li>
-              <a href="/product" className="mr-2 text-sm font-medium text-gray-900">Products</a>
+              <a href="/products" className="mr-2 text-sm font-medium text-gray-900">Products</a>
               <svg width={16} height={20} viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" className="h-5 w-4 text-gray-300">
                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
               </svg>
