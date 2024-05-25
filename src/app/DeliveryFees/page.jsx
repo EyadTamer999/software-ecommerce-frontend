@@ -91,7 +91,7 @@ const DeliveryFees = () => {
                 <thead>
                   <tr className="bg-gray-200 text-left">
                     <th className="py-2 px-4 border-b">#</th>
-                    <th className="py-2 px-4 border-b">City</th>
+                    <th className="py-2 px-4 border-b">State</th>
                     <th className="py-2 px-4 border-b">Delivery Fee</th>
                     <th className="py-2 px-4 border-b">Actions</th>
                   </tr>
