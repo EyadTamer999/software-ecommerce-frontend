@@ -47,12 +47,14 @@ export default function UtilityButtons({ setOpenCart, setOpenWishlist }) {
             </div>
 
             {/* Wishlist */}
-            <div className="ml-4 flow-root lg:ml-6">
-                <button onClick={() => setOpenWishlist(true)} className="group -m-2 flex items-center p-2">
-                    <HeartIcon className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                    <span className="sr-only">items in wishlist, view wishlist</span>
-                </button>
-            </div>
+            {localStorage.getItem('token') && (
+                <div className="ml-4 flow-root lg:ml-6">
+                    <button onClick={() => setOpenWishlist(true)} className="group -m-2 flex items-center p-2">
+                        <HeartIcon className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
+                        <span className="sr-only">items in wishlist, view wishlist</span>
+                    </button>
+                </div>
+            )}
 
             {/* Cart */}
             <div className="ml-4 flow-root lg:ml-6">

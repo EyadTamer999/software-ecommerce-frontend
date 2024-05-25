@@ -25,6 +25,7 @@ export default function Navbar() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('cart');
     }
     // Assuming `dispatch(logout())` is used here to handle the logout logic
     setNotification({ message: 'Logout successful!', type: 'success' });

@@ -32,7 +32,7 @@ export default function Home() {
     <div className="bg-white flex flex-col">
       <ProductList title="Buy Now!" products={products} />
       <div id='OnSale'>
-        <ProductList title="On Sale 💯" products={offers} />
+        <ProductList title="On Sale 💯" products={offers} isSaleList={true} />
       </div>
       <div id='trending'>
         <ProductList title="Trending 🔥" products={popularProducts} />
