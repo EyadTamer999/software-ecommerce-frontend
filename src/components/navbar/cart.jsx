@@ -7,9 +7,18 @@ export default function Cart({ open, setOpen }) {
     const [cartProducts, setCartProducts] = useState([]);
 
     const fetchCart = async () => {
-        const response = await getCart();
-        setCartProducts(response.cart);
-        console.log(response.cart);
+        if (localStorage.getItem('token')) {
+            const response = await getCart();
+            setCartProducts(response.cart);
+            // add to local storage
+            localStorage.setItem('cart', JSON.stringify(response.cart));
+            console.log(response.cart);
+        }
+        else {
+            // If the user is not logged in, get the cart from local storage
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            setCartProducts(cart);
+        }
     };
 
     useEffect(() => {
@@ -87,8 +96,15 @@ export default function Cart({ open, setOpen }) {
                                                                             <button
                                                                                 onClick={(e) => {
                                                                                     e.preventDefault();
-                                                                                    removeCart(product._id);
-                                                                                    setCartProducts(cartProducts.filter((item) => item._id !== product._id));
+                                                                                    if (localStorage.getItem('token')) {
+                                                                                        removeCart(product._id);
+                                                                                        setCartProducts(cartProducts.filter((item) => item._id !== product._id));
+                                                                                    }
+                                                                                    else {
+                                                                                        const cart = JSON.parse(localStorage.getItem('cart'));
+                                                                                        localStorage.setItem('cart', JSON.stringify(cart.filter((item) => item._id !== product._id)));
+                                                                                        setCartProducts(cartProducts.filter((item) => item._id !== product._id));
+                                                                                    }
                                                                                 }}
                                                                                 type="button"
                                                                                 className="font-medium text-indigo-600 hover:text-indigo-500"
@@ -115,8 +131,19 @@ export default function Cart({ open, setOpen }) {
                                             <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                             <div className="mt-6">
                                                 <a
-                                                    href="/order"
-                                                    className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                                                    onClick={
+                                                        () => {
+                                                            if (localStorage.getItem('token')) {
+                                                                // Redirect to checkout page
+                                                                window.location.href = '/order';
+                                                            }
+                                                            else {
+                                                                // Redirect to login page
+                                                                window.location.href = '/login';
+                                                            }
+                                                        }
+                                                    }
+                                                    className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
                                                 >
                                                     Checkout
                                                 </a>

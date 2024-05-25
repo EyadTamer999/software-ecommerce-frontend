@@ -16,11 +16,47 @@ export default function Wishlist({ open, setOpen }) {
 
     const handleAddToCart = async (product) => {
         const cartItem = {
-            product_id: product._id,
+            id: product._id,
+            name: product.name,
+            rent: false,
+            rent_duration: 0,
             quantity: 1,
+            size: "Medium",
+            color: "red",
+            material: product.material,
+            price: product.buy_price,
         };
-        const response = await addToCart(cartItem);
-        console.log(response);
+
+        console.log("cartitem", cartItem);
+
+        // save item to cart localstorage
+        let cart = localStorage.getItem('cart');
+        if (!cart) {
+            cart = [];
+        } else {
+            cart = JSON.parse(cart);
+        }
+
+        // if item already exists in cart, increase quantity
+        const existingItem = cart.find((item) => item.id === cartItem.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push(cartItem);
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        if (localStorage.getItem('token') !== null) {
+            // add to cart API
+            addToCart(cartItem);
+        }
+
+        // remove item from wishlist
+        removeWishlist(product._id);
+
+        // update wishlist
+        setWishlistProducts(wishlistProducts.filter((item) => item._id !== product._id));
     };
 
     useEffect(() => {
