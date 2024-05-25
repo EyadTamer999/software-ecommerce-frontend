@@ -1,4 +1,5 @@
 'use client';
+import { HeartIcon, PaperAirplaneIcon, StarIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 
 const Sidebar = () => {
@@ -124,6 +125,30 @@ const Sidebar = () => {
                             <small className="text-xs font-medium">Payment</small>
                         </a>
 
+                        {/* Favorites Methods */}
+                        <a
+
+                            href="/favorites"
+                            class="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
+
+                        >
+                            <HeartIcon className="w-6 h-6" />
+
+                            <small className="text-xs font-medium">favorites</small>
+                        </a>
+
+                        {/* My Reviews */}
+                        <a
+                            href="/myReviews"
+                            className="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
+                        >
+                            <StarIcon className="w-6 h-6" />
+                            <small className="text-xs font-medium">Reviews</small>
+                        </a>
+
+
+
+
                         {/* My Assigned Orders (Only for Admin) */}
                         {userRole === 'admin' && (
                             <>
@@ -212,8 +237,8 @@ const Sidebar = () => {
                             </>
                         )}
 
-                        
-                        
+
+
                     </nav>
                 )
             }

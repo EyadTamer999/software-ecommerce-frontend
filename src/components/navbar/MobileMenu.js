@@ -81,7 +81,7 @@ export default function MobileMenu({ open, setOpen, isAuthenticated, handleLogou
                                                     </div>
                                                 ))}
                                             </div>
-                                            {category.sections.map((section) => (
+                                            {/* {category.sections.map((section) => (
                                                 <div key={section.name}>
                                                     <p id={`${category.id}-${section.id}-heading-mobile`} className="font-medium text-gray-900">
                                                         {section.name}
@@ -100,7 +100,7 @@ export default function MobileMenu({ open, setOpen, isAuthenticated, handleLogou
                                                         ))}
                                                     </ul>
                                                 </div>
-                                            ))}
+                                            ))} */}
                                         </Tab.Panel>
                                     ))}
                                 </Tab.Panels>

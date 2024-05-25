@@ -52,7 +52,7 @@ export default function NavigationLinks() {
                                                             </div>
                                                         ))}
                                                     </div>
-                                                    <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
+                                                    {/* <div className="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">
                                                         {category.sections.map((section) => (
                                                             <div key={section.name}>
                                                                 <p id={`${section.name}-heading`} className="font-medium text-gray-900">
@@ -69,7 +69,7 @@ export default function NavigationLinks() {
                                                                 </ul>
                                                             </div>
                                                         ))}
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                             </div>
                                         </div>

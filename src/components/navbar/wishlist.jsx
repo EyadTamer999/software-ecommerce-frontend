@@ -1,9 +1,34 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { wishlistProducts } from './constants'; // Make sure to update this import
+import { getWishlist, removeWishlist } from './fetchApi';
+import { addToCart } from '../../app/product/fetchApi';
 
 export default function Wishlist({ open, setOpen }) {
+
+    const [wishlistProducts, setWishlistProducts] = useState([]);
+
+    const fetchWishlist = async () => {
+        const response = await getWishlist();
+        setWishlistProducts(response.data);
+        console.log(response.data);
+    };
+
+    const handleAddToCart = async (product) => {
+        const cartItem = {
+            product_id: product._id,
+            quantity: 1,
+        };
+        const response = await addToCart(cartItem);
+        console.log(response);
+    };
+
+    useEffect(() => {
+        if (open) {
+            fetchWishlist();
+        }
+    }, [open]);
+
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog className="relative z-10" onClose={setOpen}>
@@ -53,11 +78,11 @@ export default function Wishlist({ open, setOpen }) {
                                                 <div className="flow-root">
                                                     <ul role="list" className="-my-6 divide-y divide-gray-200">
                                                         {wishlistProducts.map((product) => (
-                                                            <li key={product.id} className="flex py-6">
+                                                            <li key={product._id} className="flex py-6">
                                                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                                     <img
-                                                                        src={product.imageSrc}
-                                                                        alt={product.imageAlt}
+                                                                        src={product.images[0] || 'placeholder.jpg'} // Handle case where there are no images
+                                                                        alt={product.name}
                                                                         className="h-full w-full object-cover object-center"
                                                                     />
                                                                 </div>
@@ -66,19 +91,30 @@ export default function Wishlist({ open, setOpen }) {
                                                                     <div>
                                                                         <div className="flex justify-between text-base font-medium text-gray-900">
                                                                             <h3>
-                                                                                <a href={product.href}>{product.name}</a>
+                                                                                <a href={`/product?id=${product._id}`}>{product.name}</a>
                                                                             </h3>
-                                                                            <p className="ml-4">{product.price}</p>
+                                                                            <p className="ml-4">{product.buy_price}</p>
                                                                         </div>
                                                                         <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                                                                        <p className="mt-1 text-sm text-gray-500">{product.size}</p>
                                                                     </div>
                                                                     <div className="flex flex-1 items-end justify-between text-sm">
                                                                         <div className="flex">
                                                                             <button
+                                                                                onClick={(e) => { handleAddToCart(product); }}
                                                                                 type="button"
                                                                                 className="font-medium text-indigo-600 hover:text-indigo-500"
                                                                             >
-                                                                                Remove
+                                                                                Add to Cart
+                                                                            </button>
+                                                                        </div>
+                                                                        <div className="flex">
+                                                                            <button
+                                                                                onClick={(e) => { removeWishlist(product._id); setWishlistProducts(wishlistProducts.filter((item) => item._id !== product._id)); }}
+                                                                                type="button"
+                                                                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                            >
+                                                                                Remove from Wishlist
                                                                             </button>
                                                                         </div>
                                                                     </div>
@@ -111,6 +147,6 @@ export default function Wishlist({ open, setOpen }) {
                     </div>
                 </div>
             </Dialog>
-        </Transition.Root>
+        </Transition.Root >
     );
 }

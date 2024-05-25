@@ -54,3 +54,57 @@ export const addToCart = async (cartItem) => {
         console.log(e);
     }
 }
+
+
+export const addToWishlist = async (wishlistItem) => {
+    try {
+        console.log(wishlistItem);
+        const response = await fetch(BASE_URL + "/postUserWishProduct",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(wishlistItem)
+            })
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+
+export const deleteProduct = async (id) => {
+    console.log(id);
+    const response = await fetch(BASE_URL + "/deleteProduct/" + id,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+    return response.json();
+}
+
+export const addToFavorites = async (id) => {
+    const token = localStorage.getItem('token');
+    console.log(id);
+    try {
+        const response = await fetch(BASE_URL + "/postUserFavoriteProduct/",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(id)
+            })
+        return response.json();
+    }
+    catch (e) {
+        console.log(e);
+    }
+}

@@ -4,10 +4,12 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
 import ReviewsList from './ReviewsList';
 import ReviewForm from './ReviewForm';
-import { getProductById, addToCart } from './fetchApi';
+import { getProductById, addToCart, addToWishlist, deleteProduct, addToFavorites } from './fetchApi';
 import { useSearchParams } from "next/navigation";
 import ProductList from '../products/ProductList';
 import RentModal from './RentModal';
+import { getByCategory } from '../products/fetchApi';
+const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -37,6 +39,14 @@ export default function Product() {
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
+
+  const fetchRelatedProducts = async () => {
+    const response = await getByCategory(product.category);
+    setProduct({
+      ...product,
+      relatedProducts: response.data,
+    });
+  };
 
   async function fetchProduct() {
     const product = await getProductById(productId);
@@ -73,6 +83,14 @@ export default function Product() {
     fetchProduct();
   }, [productId, selectedColor, selectedSize]);
 
+
+  useEffect(() => {
+    if (product.category) {
+      fetchRelatedProducts();
+    }
+  }, [product.category]);
+
+
   const handleReviewSubmit = (newReview) => {
     console.log(newReview);
     setProduct({
@@ -81,8 +99,49 @@ export default function Product() {
     });
   };
 
-  const handleRentSubmit = (duration) => {
-    console.log(`Rent duration: ${duration} days`);
+  const handleRentSubmit = (duration, totalPrice) => {
+    console.log(duration);
+    setProduct({
+      ...product,
+      rent_duration: duration,
+    });
+
+    const cartItem = {
+      id: productId,
+      name: product.name,
+      rent: true,
+      rent_duration: duration,
+      quantity: 1,
+      size: selectedSize,
+      color: selectedColor,
+      material: product.material,
+      price: totalPrice,
+    };
+
+    console.log("cartitem", cartItem);
+
+    // save item to cart localstorage
+    let cart = localStorage.getItem('cart');
+    if (!cart) {
+      cart = [];
+    } else {
+      cart = JSON.parse(cart);
+    }
+
+    // if item already exists in cart, increase quantity
+    const existingItem = cart.find((item) => item.id === productId);
+    if (existingItem) {
+      existingItem.quantity += 1;
+    } else {
+      cart.push(cartItem);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    if (localStorage.getItem('token') !== null) {
+      // add to cart API
+      addToCart(cartItem);
+    }
   };
 
   const handleAddToCart = (e) => {
@@ -139,7 +198,7 @@ export default function Product() {
               </svg>
             </li>
             <li>
-              <a href="/product" className="mr-2 text-sm font-medium text-gray-900">Products</a>
+              <a href="/products" className="mr-2 text-sm font-medium text-gray-900">Products</a>
               <svg width={16} height={20} viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" className="h-5 w-4 text-gray-300">
                 <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
               </svg>
@@ -195,6 +254,7 @@ export default function Product() {
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
+            <h3 className="text-sm font-medium text-gray-900">{product.category}</h3>
           </div>
 
           {/* Options */}
@@ -427,17 +487,32 @@ export default function Product() {
                 </button>
                 <button
                   type="button"
+                  onClick={(e) => addToWishlist({ productId: productId })}
                   className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to Wishlist
                 </button>
                 <button
+                  onClick={(e) => addToFavorites({ productId: productId })}
                   type="button"
                   className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to Favorites
                 </button>
               </div>
+
+              {user && user.role === "admin" && (
+                <div className="mt-4">
+                  <button
+                    onClick={(e) => { deleteProduct(productId); window.location.href = "/products" }}
+                    type="button"
+                    className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+
             </form>
           </div>
 
@@ -472,18 +547,21 @@ export default function Product() {
             <ReviewForm productId={productId} onSubmit={handleReviewSubmit} />
 
             {/* Related Products */}
-            <ProductList title="Related Products" products={product.relatedProducts} />
+            <div className="space-x-5">
+              <ProductList title="Related Products" products={product.relatedProducts} />
+            </div>
 
           </div>
         </div>
-      </div>
+      </div >
       {/* Rent Modal */}
-      <RentModal
+      < RentModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => setIsModalOpen(false)
+        }
         rentPrice={product.rent_price}
         onSubmit={handleRentSubmit}
       />
-    </div>
+    </div >
   );
 }
