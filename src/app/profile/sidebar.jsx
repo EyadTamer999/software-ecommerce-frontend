@@ -193,6 +193,26 @@ const Sidebar = () => {
                                     </svg>
                                     <small className="text-xs font-medium">Add Delivery Regions</small>
                                 </a>
+                                <a
+                                    href="/createProducts"
+                                    className="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="1.5"
+                                        stroke="currentColor"
+                                        className="w-6 h-6"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M15 19l-7-7 7-7"
+                                        />
+                                    </svg>
+                                    <small className="text-xs font-medium">Create Product</small>
+                                </a>
                                 <button
                                     className="flex aspect-square min-h-[32px] flex-col items-center justify-center gap-1 rounded-md p-1.5 text-base hover:bg-primary-content transition-colors duration-300 ease-in-out"
                                     onClick={() => document.getElementById('my_modal_3').showModal()}
@@ -213,6 +233,7 @@ const Sidebar = () => {
                                     </svg>
                                     <small className="text-xs font-medium">Add Promo Code</small>
                                 </button>
+                                
                             </>
                         )}
 
